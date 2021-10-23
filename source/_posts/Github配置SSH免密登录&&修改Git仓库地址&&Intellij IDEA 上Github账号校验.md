@@ -48,6 +48,8 @@ aside:
 
 生成成功后，把``id_rsa.pub``拷贝到Github新建的``SSH keys``中。
 
+``ssh -T git@github.com``测试登陆
+
 **记住，你项目得使用``SSH clone``**。
 
 如果本地是``https``源，那么就修改``git``仓库地址。
