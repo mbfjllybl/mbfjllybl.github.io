@@ -127,7 +127,7 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    # - https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202110251516986.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -834,7 +834,7 @@ css_prefix: true
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
 inject:
   head:
-    - <link rel="stylesheet" href="/css/background.css">
+    - <link rel="stylesheet" href="/css/background.css" media="defer" onload="this.media='all'">
   bottom:
     # - <script src="xxxx"></script>
 
