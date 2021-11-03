@@ -47,6 +47,6 @@ aside:
 + ``npm install hexo-cli``
 + ``npm install``
 + ``npm install hexo-deployer-git``
-+ ``npx hexo clear``
++ ``npx hexo clean``
 + ``npx hexo g``
 + ``npx hexo d``
