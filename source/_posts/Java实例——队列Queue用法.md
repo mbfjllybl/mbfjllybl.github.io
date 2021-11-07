@@ -46,57 +46,30 @@ public class Main {
         queue.offer("d");
         queue.offer("e");
         
+        // a b c d e
         for(String q : queue){
             System.out.println(q);
         }
         
-        System.out.println("-----");
-        System.out.println("poll=" + queue.poll()); //返回第一个元素，并在队列中删除
+        // b c d e
+        queue.poll(); //返回第一个元素，并在队列中删除
         for(String q : queue){
             System.out.println(q);
         }
         
-        System.out.println("-----");
-        System.out.println("element=" + queue.element()); //返回第一个元素 
+        // b c d e
+        queue.element(); //返回第一个元素 
         for(String q : queue){
             System.out.println(q);
         }
         
-        System.out.println("-----");
-        System.out.println("peek=" + queue.peek()); //返回第一个元素 
+        // b c d e
+        queue.peek(); //返回第一个元素 
         for(String q : queue){
             System.out.println(q);
         }
     }
 }
-```
-
-输出结果为：
-
-```
-a
-b
-c
-d
-e
------
-poll=a
-b
-c
-d
-e
------
-element=b
-b
-c
-d
-e
------
-peek=b
-b
-c
-d
-e
 ```
 
 **offer，add 区别：**
