@@ -31,6 +31,8 @@ aside:
 
 ``master``分支是默认的博客静态页面分支，在之后恢复博客的时候并不需要。
 
+将博客仓库clone至本地，将之前的Hexo文件夹中的`_config.yml`，`themes/`，`source`，`scffolds/`，`package.json`，`.gitignore`复制到你克隆下来的仓库文件夹，即`username.github.io`。
+
 个人而言习惯于先备份文件再生成博客。
 
 + ``git add .``
@@ -50,3 +52,4 @@ aside:
 + ``npx hexo clean``
 + ``npx hexo g``
 + ``npx hexo d``
+
