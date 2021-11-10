@@ -126,3 +126,4 @@ int l_times_r = Multiply(lvalue, rvalue);
 
 当然Netty还有许多好处，比如对非阻塞IO（NIO）的支持，比如在链上传递时最大程度的减少buffer的copy（高性能）。
 
+> [link](https://www.zhihu.com/question/25536695)
