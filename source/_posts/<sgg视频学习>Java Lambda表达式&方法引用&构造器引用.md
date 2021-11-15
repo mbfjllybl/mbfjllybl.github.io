@@ -22,6 +22,7 @@ katex:
 aplayer:
 highlight_shrink:
 aside:
+
 ---
 
 # Java Lambda表达式&方法引用&构造器引用
@@ -187,7 +188,7 @@ public class ComparatorTest {
 
 接口：为函数式接口（只有一个抽象方法）`@FunctionalInterface`
 
-#### java.util.function
+**java.util.function**
 
 + `Consumer<T>` 消费型接口 `void accept(T t)`
 
