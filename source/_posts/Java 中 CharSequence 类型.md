@@ -1,5 +1,5 @@
 ---
-title: JAVA 中 CharSequence 类型
+title: Java 中 CharSequence 类型
 date: 2021-11-16 10:23:33
 updated:
 tags: Java
@@ -25,7 +25,7 @@ highlight_shrink:
 aside:
 ---
 
-# JAVA 中 CharSequence 类型
+# Java 中 CharSequence 类型
 
 charSequence是一个接口，表示char值的一个可读序列。此接口对许多不同种类的char序列提供统一的自读访问。此接口不修改该equals和hashCode方法的常规协定，因此，通常未定义比较实现 CharSequence 的两个对象的结果。他有几个实现类：CharBuffer、String、StringBuffer、StringBuilder。
 
