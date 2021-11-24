@@ -3,8 +3,7 @@ title: <sgg视频学习>Stream API
 date: 2021-11-11 10:38:33
 updated:
 tags: Stream
-categories:
-- [Java]
+categories: Java
 keywords: 
 description:
 top_img:

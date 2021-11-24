@@ -3,9 +3,7 @@ title: Java三种代理模式：静态代理、动态代理和cglib代理
 date: 2021-11-10 13:38:33
 updated:
 tags: 动态代理
-categories:
-- [设计模式]
-- [技术转载学习]
+categories: 设计模式
 keywords: 
 description:
 top_img:

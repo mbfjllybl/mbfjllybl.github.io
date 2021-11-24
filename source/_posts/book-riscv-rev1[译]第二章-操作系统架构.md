@@ -3,10 +3,7 @@ title: book-riscv-rev1[译]第二章 操作系统架构
 date: 2021-10-26 11:38:33
 updated:
 tags: 6.S081
-categories:
-- [OS]
-- [Computer Translate]
-- [Linux]
+categories: 操作系统
 keywords: 
 description:
 top_img:

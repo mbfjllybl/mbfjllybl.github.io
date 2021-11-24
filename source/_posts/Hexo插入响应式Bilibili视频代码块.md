@@ -3,9 +3,7 @@ title: Hexo插入响应式Bilibili视频代码块
 date: 2021-11-16 12:20:33
 updated:
 tags: Hexo
-categories:
-- [Hexo配置与美化]
-- [技术转载学习]
+categories: Hexo
 keywords: 
 description:
 top_img:
@@ -62,5 +60,4 @@ b站官方已经提供了iframe标签，有些小伙伴可能已经发现了。�
 
 
 
- 
 

@@ -3,8 +3,7 @@ title: Java实例——队列Queue用法
 date: 2021-10-31 11:38:33
 updated:
 tags: Java
-categories:
-- [Java]
+categories: Java
 keywords: 
 description:
 top_img:

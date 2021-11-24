@@ -3,10 +3,7 @@ title: book-riscv-rev1[译]第一章 操作系统接口
 date: 2021-10-25 10:38:33
 updated:
 tags: 6.S081
-categories:
-- [OS]
-- [Computer Translate]
-- [Linux]
+categories: 操作系统
 keywords: 
 description:
 top_img:

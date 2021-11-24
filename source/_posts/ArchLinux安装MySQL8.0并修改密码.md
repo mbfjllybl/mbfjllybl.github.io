@@ -3,9 +3,7 @@ title: ArchLinux安装MySQL8.0并修改密码
 date: 2021-10-24 12:38:33
 updated:
 tags: MySQL
-categories:
-- [MySQL]
-- [Linux]
+categories: MySQL
 keywords: 
 description:
 top_img:

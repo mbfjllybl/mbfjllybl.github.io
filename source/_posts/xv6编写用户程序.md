@@ -3,9 +3,7 @@ title: xv6编写用户程序
 date: 2021-10-26 9:38:33
 updated:
 tags: 6.S081
-categories:
-- [OS]
-- [Linux]
+categories: 操作系统
 keywords: 
 description:
 top_img:

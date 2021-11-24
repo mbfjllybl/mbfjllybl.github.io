@@ -3,10 +3,7 @@ title: Linux写时拷贝技术(copy-on-write)
 date: 2021-11-02 21:38:33
 updated:
 tags: 写时拷贝技术
-categories:
-- [OS]
-- [Linux]
-- [技术转载学习]
+categories: 操作系统
 keywords: 
 description:
 top_img:

@@ -3,9 +3,7 @@ title: Java Collections中常用的方法
 date: 2021-11-17 15:19:33
 updated:
 tags: Java
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:

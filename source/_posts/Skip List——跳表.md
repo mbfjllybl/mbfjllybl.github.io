@@ -3,10 +3,7 @@ title: Skip List——跳表
 date: 2021-11-03 22:38:33
 updated:
 tags: 跳表
-categories:
-- [Data Structure]
-- [Redis]
-- [技术转载学习]
+categories: 数据结构
 keywords: 
 description:
 top_img:

@@ -3,9 +3,7 @@ title: 深入浅出HashMap扩容死循环问题
 date: 2021-11-03 11:38:33
 updated:
 tags: HashMap
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:

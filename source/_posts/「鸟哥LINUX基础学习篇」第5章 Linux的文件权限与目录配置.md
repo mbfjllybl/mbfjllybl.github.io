@@ -1,10 +1,9 @@
 ---
-title: 「鸟哥LINUX基础学习篇」第5章 Linux的文件权限与目录配置「待整理 ING ...」
+title: 「鸟哥LINUX基础学习篇」第5章 Linux的文件权限与目录配置
 date: 2021-11-18 00:44:33
 updated:
 tags: Linux
-categories:
-- [Linux]
+categories: Linux
 keywords: 
 description:
 top_img:
@@ -24,9 +23,7 @@ highlight_shrink:
 aside:
 ---
 
-「鸟哥LINUX基础学习篇」第5章 Linux的文件权限与目录配置「待整理 ING ...」
-
----
+## 「鸟哥LINUX基础学习篇」第5章 Linux的文件权限与目录配置
 
 ![](https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111180004244.png)
 

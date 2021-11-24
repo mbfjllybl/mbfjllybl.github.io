@@ -3,9 +3,7 @@ title: jar包和war包的介绍和区别
 date: 2021-11-06 10:38:33
 updated:
 tags: Java
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:

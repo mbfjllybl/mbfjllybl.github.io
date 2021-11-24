@@ -3,8 +3,7 @@ title: <Redis设计与实现>第一部分 数据结构与对象
 date: 2021-11-05 01:38:33
 updated:
 tags: Redis
-categories:
-- [Redis]
+categories: Redis
 keywords: 
 description:
 top_img:

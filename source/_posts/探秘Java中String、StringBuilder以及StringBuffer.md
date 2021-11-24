@@ -3,9 +3,7 @@ title: 探秘Java中String、StringBuilder以及StringBuffer
 date: 2021-11-15 23:38:33
 updated:
 tags: Java
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:

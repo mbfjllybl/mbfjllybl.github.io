@@ -3,9 +3,7 @@ title: Hexo MAC代码框样式美化
 date: 2021-11-16 13:20:33
 updated:
 tags: Hexo
-categories:
-- [Hexo配置与美化]
-- [技术转载学习]
+categories: Hexo
 keywords: 
 description:
 top_img:

@@ -3,9 +3,7 @@ title: 在Arch中安装IntelliJ IDEA Ultimate
 date: 2021-10-25 01:38:33
 updated:
 tags: IDEA
-categories:
-- [IDEA]
-- [Linux]
+categories: Linux
 keywords: 
 description:
 top_img:

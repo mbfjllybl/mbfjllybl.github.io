@@ -3,9 +3,7 @@ title: 如何为项目编写良好 README
 date: 2021-11-06 13:38:33
 updated:
 tags: Git
-categories:
-- [Git]
-- [技术转载学习]
+categories: Git
 keywords: 
 description:
 top_img:

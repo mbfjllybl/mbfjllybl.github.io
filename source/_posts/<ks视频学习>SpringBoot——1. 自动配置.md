@@ -3,8 +3,7 @@ title: <ks视频学习>SpringBoot——1. 自动配置
 date: 2021-11-07 17:38:33
 updated:
 tags: SpringBoot
-categories:
-- [SpringBoot]
+categories: SpringBoot
 keywords: 
 description:
 top_img:

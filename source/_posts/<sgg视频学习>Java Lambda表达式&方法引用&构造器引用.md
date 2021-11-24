@@ -3,8 +3,7 @@ title: <sgg视频学习>Java Lambda表达式&方法引用&构造器引用
 date: 2021-11-11 00:38:33
 updated:
 tags: Lambda
-categories:
-- [Java]
+categories: Java
 keywords: 
 description:
 top_img:

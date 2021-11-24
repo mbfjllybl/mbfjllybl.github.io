@@ -3,9 +3,7 @@ title: 简单易懂教你学会SQL关联子查询
 date: 2021-11-07 22:38:33
 updated:
 tags: MySQL
-categories:
-- [MySQL]
-- [技术转载学习]
+categories: MySQL
 keywords: 
 description:
 top_img:

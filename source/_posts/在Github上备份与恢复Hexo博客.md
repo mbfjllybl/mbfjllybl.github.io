@@ -3,9 +3,7 @@ title: 在Github上备份Hexo博客
 date: 2021-10-23 22:38:33
 updated:
 tags: Hexo
-categories:
-- [Hexo配置与美化]
-- [Git]
+categories: Hexo
 keywords: 
 description:
 top_img:

@@ -3,9 +3,7 @@ title: 为什么磁盘存储引擎用 b+树来作为索引结构？
 date: 2021-11-07 11:38:33
 updated:
 tags: MySQL
-categories:
-- [MySQL]
-- [技术转载学习]
+categories: MySQL
 keywords: 
 description:
 top_img:

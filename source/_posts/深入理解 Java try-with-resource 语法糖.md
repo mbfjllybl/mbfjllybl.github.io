@@ -3,9 +3,7 @@ title: 深入理解 Java try-with-resource 语法糖
 date: 2021-11-11 18:38:33
 updated:
 tags: Java
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:

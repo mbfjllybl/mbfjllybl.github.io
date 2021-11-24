@@ -3,9 +3,7 @@ title: YAML 语言教程
 date: 2021-11-02 11:38:33
 updated:
 tags: YAML
-categories:
-- [YAML]
-- [技术转载学习]
+categories: YAML
 keywords: 
 description:
 top_img:

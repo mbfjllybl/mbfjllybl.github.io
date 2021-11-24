@@ -3,9 +3,7 @@ title: 谁能用通俗的语言解释一下什么是 RPC 框架？
 date: 2021-11-09 13:38:33
 updated:
 tags: 网络编程
-categories:
-- [网络编程]
-- [技术转载学习]
+categories: 杂谈
 keywords: 
 description:
 top_img:

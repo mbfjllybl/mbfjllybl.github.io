@@ -3,8 +3,7 @@ title: Linux中ctrl-c、ctrl-z、ctrl-d区别
 date: 2021-11-11 14:38:33
 updated:
 tags: Linux
-categories:
-- [Linux]
+categories: Linux
 keywords: 
 description:
 top_img:

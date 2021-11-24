@@ -3,8 +3,7 @@ title: Java 中 HashMap 初始化时赋值
 date: 2021-11-03 23:38:33
 updated:
 tags: Java
-categories:
-- [Java]
+categories: Java
 keywords: 
 description:
 top_img:

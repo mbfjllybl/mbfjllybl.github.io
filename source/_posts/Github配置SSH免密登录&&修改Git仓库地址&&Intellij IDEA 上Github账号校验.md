@@ -3,9 +3,7 @@ title: Support for password authentication was removed on August 13, 2021. Pleas
 date: 2021-10-23 20:28:31
 updated:
 tags: Git
-categories:
-- [Git]
-- [ERROR summary]
+categories: Git
 keywords: 
 description:
 top_img:

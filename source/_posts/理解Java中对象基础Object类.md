@@ -3,9 +3,7 @@ title: 理解Java中对象基础Object类
 date: 2021-11-16 11:19:33
 updated:
 tags: Java
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:

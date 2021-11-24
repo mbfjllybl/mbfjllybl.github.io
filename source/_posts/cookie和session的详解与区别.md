@@ -5,9 +5,7 @@ updated:
 tags: 
 - [cookie]
 - [session]
-categories:
-- [javaWeb]
-- [技术转载学习]
+categories: JavaWeb
 keywords: 
 description:
 top_img:

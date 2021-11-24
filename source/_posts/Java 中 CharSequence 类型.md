@@ -3,9 +3,7 @@ title: Java 中 CharSequence 类型
 date: 2021-11-16 10:23:33
 updated:
 tags: Java
-categories:
-- [Java]
-- [技术转载学习]
+categories: Java
 keywords: 
 description:
 top_img:
