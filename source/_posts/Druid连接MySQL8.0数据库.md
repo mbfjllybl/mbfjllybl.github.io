@@ -2,9 +2,8 @@
 title: Druid连接MySQL8.0数据库
 date: 2021-10-23 23:38:33
 updated:
-tags: MySQL
-categories:
-- [MySQL]
+tags: Druid
+categories: MySQL
 keywords: 
 description:
 top_img:

@@ -2,7 +2,7 @@
 title: jar包和war包的介绍和区别
 date: 2021-11-06 10:38:33
 updated:
-tags: Java
+tags: jar/war
 categories: Java
 keywords: 
 description:

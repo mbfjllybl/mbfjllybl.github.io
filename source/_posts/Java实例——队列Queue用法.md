@@ -2,7 +2,7 @@
 title: Java实例——队列Queue用法
 date: 2021-10-31 11:38:33
 updated:
-tags: Java
+tags: Queue
 categories: Java
 keywords: 
 description:

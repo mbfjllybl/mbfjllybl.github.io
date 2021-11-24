@@ -2,9 +2,8 @@
 title: ArchLinux KDE使用蓝牙音频设备
 date: 2021-10-24 23:48:33
 updated:
-tags: Linux
-categories:
-- [Linux]
+tags: Arch
+categories: Linux
 keywords: 
 description:
 top_img:
