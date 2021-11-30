@@ -91,7 +91,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111160213086.jpg
+index_img: # https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111301505928.jpg
 
 # If the banner of page not setting, it will show the top_img
 default_top_img:
@@ -127,7 +127,37 @@ cover:
   position: both
   # When cover is not set, the default cover is displayed (當沒有設置cover時，默認的封面顯示)
   default_cover:
-    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111160208816.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302117735.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302118067.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121656.jpeg 
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121767.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121613.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302122113.jpeg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130678.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130377.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130457.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132066.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132529.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132667.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133851.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133712.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133821.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133586.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133603.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133177.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302134545.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302142122.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302143632.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302143588.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302143395.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302143041.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302143729.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302143161.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg
+    - https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg
 
 # Replace Broken Images (替換無法顯示的圖片)
 error_img:
@@ -503,7 +533,9 @@ tag_ui: # 留空或 index
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background: url(https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111160213086.jpg)
+background: 
+    - url(https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111301505928.jpg)
+    - url(https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302148923.jpg)
 
 # Footer Background
 footer_bg: false
