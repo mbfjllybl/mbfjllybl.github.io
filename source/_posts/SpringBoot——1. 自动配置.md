@@ -1,5 +1,5 @@
 ---
-title: <ks视频学习>SpringBoot——1. 自动配置
+title: SpringBoot——1. 自动配置
 date: 2021-11-07 17:38:33
 updated:
 tags: SpringBoot
@@ -44,6 +44,7 @@ aside:
 @SpringBootConfiguration->@Configuration->@Component
 @EnableAutoConfiguration->@AutoConfigurationPackage->@Import({Registrar.class})//自动注册包
     					->@Import({AutoConfigurationImportSelector.class})/*自动导入包*/->List<String> configurations = this.getCandidateConfigurations(annotationMetadata, attributes);
+@ComponentScan
 ```
 
 获取候选的配置
@@ -56,9 +57,18 @@ protected List<String> getCandidateConfigurations(AnnotationMetadata metadata, A
 }
 ```
 
-`/home/mbfjllybl/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.5.6/spring-boot-autoconfigure-2.5.6.jar!/META-INF/spring.factories`
+`/home/mbfjllybl/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/2.5.6/spring-boot-autoconfigure-2.5.6.jar/META-INF/spring.factories`
 
 springboot所有的自动配置都是在启动的时候扫描并加载，所有的配置都在spring.factories里，但是不一定生效，只有导入对应的启动器才生效。
+
+总结：
+
++ springboot在启动的时候，从类路径下`META-INF/spring.factories`获取指定的值
++ 将这些自动配置的类导入容器中，自动配置就会生效，帮助我们自动配置
++ 整个JavaEE，解决方案和自动配置的东西都在`spring-boot-autoconfigure-2.5.6.jar`这个包下
++ 它会把所有需要导入的组件，以类名的形式返回，这些组件就会被添加到容器
++ 容器中也会存在非常多的`xxxAutoConfiguration`的文件（@Bean），就是这些类给容器中导入了这个场景需要的所有组件，并自动配置，`@Configuration`
++ 有了自动配置类，免去了我们手动编写配置文件的工作
 
 #### run方法
 
@@ -69,11 +79,9 @@ springboot所有的自动配置都是在启动的时候扫描并加载，所有�
 
 #### application.yaml/application.properties
 
-`ConfigurationProperties(prefix = "person")`
++ 在组件前面添加注解：`@ConfigurationProperties(prefix = "person")`，对应`properties.yaml`文件中的属性
 
-`PropertySource(value = "classpath:QAQ.properties")`加载指定的配置文件
-
-`@value("${name}")`
++ 在组件前面添加注解：`@PropertySource(value = "classpath:QAQ.properties")`加载指定的配置文件，在属性前面添加注解`@value("${name}")`，对应`properties`配置文件中的属性
 
 yaml中`age=${random.int}`
 
@@ -85,9 +93,9 @@ yaml中`age=${random.int}`
 | JSR303数据校验       | 支持                     | 不支持     |
 | 复杂类型封装         | 支持                     | 不支持     |
 
-松散绑定 lastName last-name
+松散绑定 lastName对应last-name
 
-JSR303数据校验 `@Validated`放在类上 `@Email()`放在属性上
+JSR303数据校验 实例：`@Validated`放在类上 `@Email(message="格式错误")`放在属性上
 
 #### 配置文件位置
 
@@ -100,9 +108,13 @@ JSR303数据校验 `@Validated`放在类上 `@Email()`放在属性上
 
 #### 多环境配置文件
 
+**`properties`文件配置如下：**
+
 `application-dev.properties`
 
 `spring.profiles.active=dev`
+
+**`yaml`文件配置如下：**
 
 ```yaml
 server:
@@ -163,7 +175,7 @@ public class ServerProperties { }
 
 `xxxProperties`封装配置文件中相关属性
 
-#### 检测`debug: true`查看哪些自动配置类生效
+#### 在配置文件中添加`debug: true`查看哪些自动配置类生效
 
 `postive matches`生效
 
