@@ -2,8 +2,8 @@
 title: IntelliJ IDEA中安装的插件集合
 date: 2021-11-25 15:38:33
 updated:
-tags: Lombok
-categories: IntelliJ IDEA
+tags: Java
+categories: Java
 keywords: 
 description:
 top_img:

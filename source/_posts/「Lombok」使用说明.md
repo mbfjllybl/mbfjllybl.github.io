@@ -1,9 +1,9 @@
 ---
-title: Lombok 看这篇就够了
+title: 「Lombok」使用说明
 date: 2021-11-25 14:38:33
 updated:
 tags: Lombok
-categories: IntelliJ IDEA
+categories: Java
 keywords: 
 description:
 top_img:
@@ -23,7 +23,7 @@ highlight_shrink:
 aside:
 ---
 
-# Lombok 看这篇就够了
+# 「Lombok」使用说明
 
 ### 前提
 
