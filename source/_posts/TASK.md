@@ -5,10 +5,11 @@ updated:
 tags: 
 categories: 
 keywords: 
-description:
+description: TASK
 top_img:
 comments:
 cover:
+swiper_index: 1
 toc:
 toc_number:
 copyright:
@@ -29,3 +30,28 @@ aside:
 
 > 免费课程，主要讲解LVM、ACL、RAID、网卡、SELinux、IPTables、SSH/VNC
 
+|          |               |
+| -------- | ------------- |
+| 开始时间 | 2023年8月10日 |
+| 结束时间 |               |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---
+
++ 置顶轮播插件：`npm install hexo-butterfly-swiper --save`
++ emmm
