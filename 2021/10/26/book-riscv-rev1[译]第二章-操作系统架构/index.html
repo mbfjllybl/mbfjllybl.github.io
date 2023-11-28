@@ -1,0 +1,350 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>book-riscv-rev1[译]第二章 操作系统架构 | mbfjllybl's Blog</title><meta name="keywords" content="6.S081"><meta name="author" content="mbfjllybl"><meta name="copyright" content="mbfjllybl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="第二章 操作系统架构操作系统的一个关键要求是同时支持多个活动。例如，使用第1章中描述的系统调用接口，一个进程可以用fork启动新进程。操作系统必须在这些进程之间分时使用计算机资源。例如，即使进程比硬件处理器多，操作系统也必须确保所有进程都有机会执行。操作系统还必须安排进程之间的隔离。也就是说，如果一个进程有错误和故障，它不应该影响不依赖于有错误的进程的进程。然而，完全隔离又太过头了，进程之间应当可">
+<meta property="og:type" content="article">
+<meta property="og:title" content="book-riscv-rev1[译]第二章 操作系统架构">
+<meta property="og:url" content="https://mbfjllybl.github.io/2021/10/26/book-riscv-rev1[%E8%AF%91]%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/index.html">
+<meta property="og:site_name" content="mbfjllybl&#39;s Blog">
+<meta property="og:description" content="第二章 操作系统架构操作系统的一个关键要求是同时支持多个活动。例如，使用第1章中描述的系统调用接口，一个进程可以用fork启动新进程。操作系统必须在这些进程之间分时使用计算机资源。例如，即使进程比硬件处理器多，操作系统也必须确保所有进程都有机会执行。操作系统还必须安排进程之间的隔离。也就是说，如果一个进程有错误和故障，它不应该影响不依赖于有错误的进程的进程。然而，完全隔离又太过头了，进程之间应当可">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg">
+<meta property="article:published_time" content="2021-10-26T03:38:33.000Z">
+<meta property="article:modified_time" content="2023-08-10T06:28:56.443Z">
+<meta property="article:author" content="mbfjllybl">
+<meta property="article:tag" content="6.S081">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mbfjllybl.github.io/2021/10/26/book-riscv-rev1[%E8%AF%91]%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'book-riscv-rev1[译]第二章 操作系统架构',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 14:28:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macblack.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">mbfjllybl's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">book-riscv-rev1[译]第二章 操作系统架构</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-10-26T03:38:33.000Z" title="Created 2021-10-26 11:38:33">2021-10-26</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-10T06:28:56.443Z" title="Updated 2023-08-10 14:28:56">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="book-riscv-rev1[译]第二章 操作系统架构"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="第二章-操作系统架构"><a href="#第二章-操作系统架构" class="headerlink" title="第二章 操作系统架构"></a>第二章 操作系统架构</h1><p>操作系统的一个关键要求是同时支持多个活动。例如，使用第1章中描述的系统调用接口，一个进程可以用<code>fork</code>启动新进程。操作系统必须在这些进程之间分时使用计算机资源。例如，即使进程比硬件处理器多，操作系统也必须确保所有进程都有机会执行。操作系统还必须安排进程之间的隔离。也就是说，如果一个进程有错误和故障，它不应该影响不依赖于有错误的进程的进程。然而，完全隔离又太过头了，进程之间应当可以进行刻意为之的交互；管道就是一个例子。因此，操作系统必须满足三个要求：多路复用、隔离和交互。</p>
+<p>本章概述了如何组织操作系统来实现这三个要求。事实证明，有很多方法可以做到这一点，但是本文侧重于以<strong>宏内核</strong>为中心的主流设计，许多Unix操作系统都使用这种内核。本章还概述了xv6进程（它是xv6中的隔离单元）以及xv6启动时第一个进程的创建。</p>
+<p>Xv6运行在多核RISC-V微处理器上，它的许多低级功能（例如，它的进程实现）是特定于RISC-V的。RISC-V是一个64位的中央处理器，xv6是用基于“LP64”的C语言编写的，这意味着C语言中的<code>long</code>（L）和指针（P）变量都是64位的，但<code>int</code>是32位的。这本书假设读者已经在一些架构上做了一些机器级编程，并将在出现时介绍RISC-V特定的想法。RISC-V的一个有用的参考文献是《The RISC-V Reader: An Open Architecture Atlas》。用户级ISA和特权指令架构均是官方规范。</p>
+<p>完整计算机中的CPU被支撑硬件包围，其中大部分是以I/O接口的形式。Xv6是以qemu的“-machine virt”选项模拟的支撑硬件编写的。这包括RAM、包含引导代码的ROM、一个到用户键盘/屏幕的串行连接，以及一个用于存储的磁盘。</p>
+<h2 id="2-1-抽象系统资源"><a href="#2-1-抽象系统资源" class="headerlink" title="2.1 抽象系统资源"></a>2.1 抽象系统资源</h2><p>当谈及操作系统时，人们可能会问的第一个问题是为什么需要它？也就是说，我们可以将图1.2中的系统调用实现为一个库，应用程序可以与之链接。在此方案中，每个应用程序甚至可以根据自己的需求定制自己的库。应用程序可以直接与硬件资源交互，并以应用程序的最佳方式使用这些资源（例如，实现高性能或可预测的性能）。一些嵌入式设备或实时系统的操作系统就是这样组织的。</p>
+<p>这种库函数方法的缺点是，如果有多个应用程序在运行，这些应用程序必须表现良好。例如，每个应用程序必须定期放弃中央处理器，以便其他应用程序能够运行。如果所有应用程序都相互信任并且没有错误，这种协同操作的分时方案可能是可以的。 然而更典型的情况是， 应用程序互不信任且存在bug，所以人们通常希望提供比合作方案更强的隔离。</p>
+<p>为了实现强隔离， 最好禁止应用程序直接访问敏感的硬件资源，而是将资源抽象为服务。 例如，Unix应用程序只通过文件系统的<code>open</code>、<code>read</code>、<code>write</code>和<code>close</code>系统调用与存储交互，而不是直接读写磁盘。这为应用程序提供了方便实用的路径名，并允许操作系统（作为接口的实现者）管理磁盘。即使隔离不是一个问题，有意交互（或者只是希望互不干扰）的程序可能会发现文件系统比直接使用磁盘更方便。</p>
+<p>同样，Unix在进程之间透明地切换硬件处理器，根据需要保存和恢复寄存器状态，这样应用程序就不必意识到分时共享的存在。这种透明性允许操作系统共享处理器，即使有些应用程序处于无限循环中。</p>
+<p>另一个例子是，Unix进程使用<code>exec</code>来构建它们的内存映像，而不是直接与物理内存交互。这允许操作系统决定将一个进程放在内存中的哪里；如果内存很紧张，操作系统甚至可以将一个进程的一些数据存储在磁盘上。<code>exec</code>还为用户提供了存储可执行程序映像的文件系统的便利。</p>
+<p>Unix进程之间的许多交互形式都是通过文件描述符实现的。文件描述符不仅抽象了许多细节（例如，管道或文件中的数据存储在哪里），而且还以简化交互的方式进行了定义。例如，如果流水线中的一个应用程序失败了，内核会为流水线中的下一个进程生成文件结束信号（EOF）。</p>
+<p>图1.2中的系统调用接口是精心设计的，既为程序员提供了便利，又提供了强隔离的可能性。Unix接口不是抽象资源的唯一方法，但它已经被证明是一个非常好的方法</p>
+<h2 id="2-2-用户态、核心态、以及系统调用"><a href="#2-2-用户态、核心态、以及系统调用" class="headerlink" title="2.2 用户态、核心态、以及系统调用"></a>2.2 用户态、核心态、以及系统调用</h2><blockquote>
+<p>Note</p>
+<p>用户态=用户模式=目态</p>
+<p>核心态=管理模式=管态</p>
+</blockquote>
+<p>强隔离需要应用程序和操作系统之间的硬边界，如果应用程序出错，我们不希望操作系统失败或其他应用程序失败，相反，操作系统应该能够清理失败的应用程序，并继续运行其他应用程序，要实现强隔离，操作系统必须保证应用程序不能修改（甚至读取）操作系统的数据结构和指令，以及应用程序不能访问其他进程的内存。</p>
+<p>CPU为强隔离提供硬件支持。例如，RISC-V有三种CPU可以执行指令的模式：机器模式(Machine Mode)、用户模式(User Mode)和管理模式(Supervisor Mode)。在机器模式下执行的指令具有完全特权；CPU在机器模式下启动。机器模式主要用于配置计算机。Xv6在机器模式下执行很少的几行代码，然后更改为管理模式。</p>
+<p>在管理模式下，CPU被允许执行特权指令：例如，启用和禁用中断、读取和写入保存页表地址的寄存器等。如果用户模式下的应用程序试图执行特权指令，那么CPU不会执行该指令，而是切换到管理模式，以便管理模式代码可以终止应用程序，因为它做了它不应该做的事情。第1章中的图1.1说明了这种组织。应用程序只能执行用户模式的指令（例如，数字相加等），并被称为在<strong>用户空间</strong>中运行，而此时处于管理模式下的软件可以执行特权指令，并被称为在<strong>内核空间</strong>中运行。在内核空间（或管理模式）中运行的软件被称为内核。</p>
+<p>想要调用内核函数的应用程序（例如xv6中的<code>read</code>系统调用）必须过渡到内核。CPU提供一个特殊的指令，将CPU从用户模式切换到管理模式，并在内核指定的入口点进入内核（RISC-V为此提供<code>ecall</code>指令）。一旦CPU切换到管理模式，内核就可以验证系统调用的参数，决定是否允许应用程序执行请求的操作，然后拒绝它或执行它。由内核控制转换到管理模式的入口点是很重要的；如果应用程序可以决定内核入口点， 那么恶意应用程序可以在跳过参数验证的地方进入内核。</p>
+<h2 id="2-3-内核组织"><a href="#2-3-内核组织" class="headerlink" title="2.3 内核组织"></a>2.3 内核组织</h2><p>一个关键的设计问题是操作系统的哪些部分应该以管理模式运行。一种可能是整个操作系统都驻留在内核中，这样所有系统调用的实现都以管理模式运行。这种组织被称为<strong>宏内核（monolithic kernel）</strong>。</p>
+<p>在这种组织中，整个操作系统以完全的硬件特权运行。这个组织很方便，因为操作系统设计者不必考虑操作系统的哪一部分不需要完全的硬件特权。此外，操作系统的不同部分更容易合作。例如，一个操作系统可能有一个可以由文件系统和虚拟内存系统共享的数据缓存区。</p>
+<p>宏组织的一个缺点是操作系统不同部分之间的接口通常很复杂（正如我们将在本文的其余部分中看到的），因此操作系统开发人员很容易犯错误。在宏内核中，一个错误就可能是致命的，因为管理模式中的错误经常会导致内核失败。如果内核失败，计算机停止工作，因此所有应用程序也会失败。计算机必须重启才能再次使用。</p>
+<p>为了降低内核出错的风险，操作系统设计者可以最大限度地减少在管理模式下运行的操作系统代码量，并在用户模式下执行大部分操作系统。这种内核组织被称为<strong>微内核（microkernel）</strong>。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202110301336899.png"></p>
+<p>图2.1说明了这种微内核设计。在图中，文件系统作为用户级进程运行。作为进程运行的操作系统服务被称为服务器。为了允许应用程序与文件服务器交互，内核提供了允许从一个用户态进程向另一个用户态进程发送消息的进程间通信机制。例如，如果像shell这样的应用程序想要读取或写入文件，它会向文件服务器发送消息并等待响应。</p>
+<blockquote>
+<p>TIPS</p>
+<p>由于客户/服务器（<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/Client/Server">Client/Server</a>）模式，具有非常多的优点，故在单机<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%BE%AE%E5%86%85%E6%A0%B8">微内核</a>操作系统中几乎无一例外地都采用客户/服务器模式，将操作系统中最基本的部分放入内核中，而把操作系统的绝大部分功能都放在微内核外面的一组服务器(<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E8%BF%9B%E7%A8%8B">进程</a>)中实现。</p>
+</blockquote>
+<p>在微内核中，内核接口由一些用于启动应用程序、发送消息、访问设备硬件等的低级功能组成。这种组织允许内核相对简单，因为大多数操作系统驻留在用户级服务器中。</p>
+<p>像大多数Unix操作系统一样，Xv6是作为一个宏内核实现的。因此，xv6内核接口对应于操作系统接口，内核实现了完整的操作系统。由于xv6不提供太多服务，它的内核可以比一些微内核还小，但从概念上说xv6属于宏内核。</p>
+<h2 id="2-4-代码（XV6架构篇）"><a href="#2-4-代码（XV6架构篇）" class="headerlink" title="2.4 代码（XV6架构篇）"></a>2.4 代码（XV6架构篇）</h2><p>XV6的源代码位于<em><strong>kernel/<em><strong>子目录中，源代码按照模块化的概念划分为多个文件，图2.2列出了这些文件，模块间的接口都被定义在了</strong></em>defs.h</strong></em>（<em><strong>kernel/defs.h</strong></em>）。</p>
+<table>
+<thead>
+<tr>
+<th><strong>文件</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><em><strong>bio.c</strong></em></td>
+<td>文件系统的磁盘块缓存</td>
+</tr>
+<tr>
+<td><em><strong>console.c</strong></em></td>
+<td>连接到用户的键盘和屏幕</td>
+</tr>
+<tr>
+<td><em><strong>entry.S</strong></em></td>
+<td>首次启动指令</td>
+</tr>
+<tr>
+<td><em><strong>exec.c</strong></em></td>
+<td><code>exec()</code>系统调用</td>
+</tr>
+<tr>
+<td><em><strong>file.c</strong></em></td>
+<td>文件描述符支持</td>
+</tr>
+<tr>
+<td><em><strong>fs.c</strong></em></td>
+<td>文件系统</td>
+</tr>
+<tr>
+<td><em><strong>kalloc.c</strong></em></td>
+<td>物理页面分配器</td>
+</tr>
+<tr>
+<td><em><strong>kernelvec.S</strong></em></td>
+<td>处理来自内核的陷入指令以及计时器中断</td>
+</tr>
+<tr>
+<td><em><strong>log.c</strong></em></td>
+<td>文件系统日志记录以及崩溃修复</td>
+</tr>
+<tr>
+<td><em><strong>main.c</strong></em></td>
+<td>在启动过程中控制其他模块初始化</td>
+</tr>
+<tr>
+<td><em><strong>pipe.c</strong></em></td>
+<td>管道</td>
+</tr>
+<tr>
+<td><em><strong>plic.c</strong></em></td>
+<td>RISC-V中断控制器</td>
+</tr>
+<tr>
+<td><em><strong>printf.c</strong></em></td>
+<td>格式化输出到控制台</td>
+</tr>
+<tr>
+<td><em><strong>proc.c</strong></em></td>
+<td>进程和调度</td>
+</tr>
+<tr>
+<td><em><strong>sleeplock.c</strong></em></td>
+<td>Locks that yield the CPU</td>
+</tr>
+<tr>
+<td><em><strong>spinlock.c</strong></em></td>
+<td>Locks that don’t yield the CPU.</td>
+</tr>
+<tr>
+<td><em><strong>start.c</strong></em></td>
+<td>早期机器模式启动代码</td>
+</tr>
+<tr>
+<td><em><strong>string.c</strong></em></td>
+<td>字符串和字节数组库</td>
+</tr>
+<tr>
+<td><em><strong>swtch.c</strong></em></td>
+<td>线程切换</td>
+</tr>
+<tr>
+<td><em><strong>syscall.c</strong></em></td>
+<td>Dispatch system calls to handling function.</td>
+</tr>
+<tr>
+<td><em><strong>sysfile.c</strong></em></td>
+<td>文件相关的系统调用</td>
+</tr>
+<tr>
+<td><em><strong>sysproc.c</strong></em></td>
+<td>进程相关的系统调用</td>
+</tr>
+<tr>
+<td><em><strong>trampoline.S</strong></em></td>
+<td>用于在用户和内核之间切换的汇编代码</td>
+</tr>
+<tr>
+<td><em><strong>trap.c</strong></em></td>
+<td>对陷入指令和中断进行处理并返回的C代码</td>
+</tr>
+<tr>
+<td><em><strong>uart.c</strong></em></td>
+<td>串口控制台设备驱动程序</td>
+</tr>
+<tr>
+<td><em><strong>virtio_disk.c</strong></em></td>
+<td>磁盘设备驱动程序</td>
+</tr>
+<tr>
+<td><em><strong>vm.c</strong></em></td>
+<td>管理页表和地址空间</td>
+</tr>
+</tbody></table>
+<p> <strong>XV6内核源文件</strong></p>
+<h1 id="2-5-进程概述"><a href="#2-5-进程概述" class="headerlink" title="2.5 进程概述"></a>2.5 进程概述</h1><p>Xv6（和其他Unix操作系统一样）中的隔离单位是一个进程。进程抽象防止一个进程破坏或监视另一个进程的内存、CPU、文件描述符等。它还防止一个进程破坏内核本身，这样一个进程就不能破坏内核的隔离机制。内核必须小心地实现进程抽象，因为一个有缺陷或恶意的应用程序可能会欺骗内核或硬件做坏事（例如，绕过隔离）。内核用来实现进程的机制包括用户/管理模式标志、地址空间和线程的时间切片。</p>
+<p>为了帮助加强隔离，进程抽象给程序提供了一种错觉，即它有自己的专用机器。进程为程序提供了一个看起来像是私有内存系统或地址空间的东西，其他进程不能读取或写入。进程还为程序提供了看起来像是自己的CPU来执行程序的指令。</p>
+<p>Xv6使用页表（由硬件实现）为每个进程提供自己的地址空间。RISC-V页表将虚拟地址（RISC-V指令操纵的地址）转换（或“映射”）为物理地址（CPU芯片发送到主存储器的地址）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202110301336885.png"></p>
+<p>Xv6为每个进程维护一个单独的页表，定义了该进程的地址空间。如图2.3所示，以虚拟内存地址0开始的进程的用户内存地址空间。首先是指令，然后是全局变量，然后是栈区，最后是一个堆区域（用于<code>malloc</code>）以供进程根据需要进行扩展。有许多因素限制了进程地址空间的最大范围： RISC-V上的指针有64位宽；硬件在页表中查找虚拟地址时只使用低39位；xv6只使用这39位中的38位。因此，最大地址是<code>2^38-1=0x3fffffffff</code>，即<code>MAXVA</code>（定义在<em><strong>kernel/riscv.h</strong></em>:348）。在地址空间的顶部，xv6为<code>trampoline</code>（用于在用户和内核之间切换）和映射进程切换到内核的<code>trapframe</code>分别保留了一个页面，正如我们将在第4章中解释的那样。</p>
+<p>xv6内核为每个进程维护许多状态片段，并将它们聚集到一个<code>proc</code>(<em><strong>kernel/proc.h</strong></em>:86)结构体中。一个进程最重要的内核状态片段是它的页表、内核栈区和运行状态。我们将使用符号<code>p-&gt;xxx</code>来引用<code>proc</code>结构体的元素；例如，<code>p-&gt;pagetable</code>是一个指向该进程页表的指针。</p>
+<p>每个进程都有一个执行线程（或简称线程）来执行进程的指令。一个线程可以挂起并且稍后再恢复。为了透明地在进程之间切换，内核挂起当前运行的线程，并恢复另一个进程的线程。线程的大部分状态（本地变量、函数调用返回地址）存储在线程的栈区上。每个进程有两个栈区：一个用户栈区和一个内核栈区（<code>p-&gt;kstack</code>）。当进程执行用户指令时，只有它的用户栈在使用，它的内核栈是空的。当进程进入内核（由于系统调用或中断）时，内核代码在进程的内核堆栈上执行；当一个进程在内核中时，它的用户堆栈仍然包含保存的数据，只是不处于活动状态。进程的线程在主动使用它的用户栈和内核栈之间交替。内核栈是独立的（并且不受用户代码的保护），因此即使一个进程破坏了它的用户栈，内核依然可以正常运行。</p>
+<p>一个进程可以通过执行RISC-V的<code>ecall</code>指令进行系统调用，该指令提升硬件特权级别，并将程序计数器（PC）更改为内核定义的入口点，入口点的代码切换到内核栈，执行实现系统调用的内核指令，当系统调用完成时，内核切换回用户栈，并通过调用<code>sret</code>指令返回用户空间，该指令降低了硬件特权级别，并在系统调用指令刚结束时恢复执行用户指令。进程的线程可以在内核中“阻塞”等待I/O，并在I/O完成后恢复到中断的位置。</p>
+<p><code>p-&gt;state</code>表明进程是已分配、就绪态、运行态、等待I/O中（阻塞态）还是退出。</p>
+<p><code>p-&gt;pagetable</code>以RISC-V硬件所期望的格式保存进程的页表。当在用户空间执行进程时，Xv6让分页硬件使用进程的<code>p-&gt;pagetable</code>。一个进程的页表也可以作为已分配给该进程用于存储进程内存的物理页面地址的记录。</p>
+<h2 id="2-6-代码（启动XV6和第一个进程）"><a href="#2-6-代码（启动XV6和第一个进程）" class="headerlink" title="2.6 代码（启动XV6和第一个进程）"></a>2.6 代码（启动XV6和第一个进程）</h2><p>为了使xv6更加具体，我们将概述内核如何启动和运行第一个进程。接下来的章节将更详细地描述本概述中显示的机制。</p>
+<p>当RISC-V计算机上电时，它会初始化自己并运行一个存储在只读内存中的引导加载程序。引导加载程序将xv6内核加载到内存中。然后，在机器模式下，中央处理器从<code>_entry</code> (<em><strong>kernel/entry.S</strong></em>:6)开始运行xv6。Xv6启动时页式硬件（paging hardware）处于禁用模式：也就是说虚拟地址将直接映射到物理地址。</p>
+<p>加载程序将xv6内核加载到物理地址为<code>0x80000000</code>的内存中。它将内核放在<code>0x80000000</code>而不是<code>0x0</code>的原因是地址范围<code>0x0:0x80000000</code>包含I/O设备。</p>
+<p><code>_entry</code>的指令设置了一个栈区，这样xv6就可以运行C代码。Xv6在<em><strong>start. c (kernel/start.c:11)<em><strong>文件中为初始栈</strong></em>stack0</strong></em>声明了空间。由于RISC-V上的栈是向下扩展的，所以<code>_entry</code>的代码将栈顶地址<code>stack0+4096</code>加载到栈顶指针寄存器<code>sp</code>中。现在内核有了栈区，<code>_entry</code>便调用C代码<code>start</code>(<em><strong>kernel/start.c</strong></em>:21)。</p>
+<p>函数<code>start</code>执行一些仅在机器模式下允许的配置，然后切换到管理模式。RISC-V提供指令<code>mret</code>以进入管理模式，该指令最常用于将管理模式切换到机器模式的调用中返回。而<code>start</code>并非从这样的调用返回，而是执行以下操作：它在寄存器<code>mstatus</code>中将先前的运行模式改为管理模式，它通过将<code>main</code>函数的地址写入寄存器<code>mepc</code>将返回地址设为<code>main</code>，它通过向页表寄存器<code>satp</code>写入0来在管理模式下禁用虚拟地址转换，并将所有的中断和异常委托给管理模式。</p>
+<p>在进入管理模式之前，<code>start</code>还要执行另一项任务：对时钟芯片进行编程以产生计时器中断。清理完这些“家务”后，<code>start</code>通过调用<code>mret</code>“返回”到管理模式。这将导致程序计数器（PC）的值更改为<code>main</code>(<em><strong>kernel/main.c</strong></em>:11)函数地址。</p>
+<blockquote>
+<p>TIPS</p>
+<p><strong>注：</strong><code>mret</code>执行返回，返回到先前状态，由于<code>start</code>函数将前模式改为了管理模式且返回地址改为了<code>main</code>,因此<code>mret</code>将返回到<code>main</code>函数，并以管理模式运行</p>
+</blockquote>
+<p>在<code>main</code>(<em><strong>kernel/main.c</strong></em>:11)初始化几个设备和子系统后，便通过调用<code>userinit</code> (<em><strong>kernel/proc.c</strong></em>:212)创建第一个进程，第一个进程执行一个用RISC-V程序集写的小型程序：<em><strong>initcode.S</strong></em> (***user/initcode.S:***1)，它通过调用<code>exec</code>系统调用重新进入内核。正如我们在第1章中看到的，<code>exec</code>用一个新程序（本例中为 <code>/init</code>）替换当前进程的内存和寄存器。一旦内核完成<code>exec</code>，它就返回<code>/init</code>进程中的用户空间。如果需要，<code>init</code>(<em><strong>user/init.c</strong></em>:15)将创建一个新的控制台设备文件，然后以文件描述符0、1和2打开它。然后它在控制台上启动一个shell。系统就这样启动了。</p>
+<h2 id="2-7-真实世界"><a href="#2-7-真实世界" class="headerlink" title="2.7 真实世界"></a>2.7 真实世界</h2><p>在现实中，人们可以同时看到宏内核和微内核。许多Unix都采用宏内核。例如，尽管Linux的一些操作系统功能作为用户级服务器运行（例如窗口系统），但它是宏内核架构。而如L4、Minix和QNX的内核都被组织成一个带有多个服务器的微内核，微内核在嵌入式设备中得到了广泛的应用。</p>
+<p>大多数操作系统都采用了进程的概念，并且大多数操作系统的进程看起来与xv6相似。然而，现代操作系统支持在一个进程中创建多个线程，使得一个进程能够利用多个处理器。在一个进程中支持多个线程涉及许多XV6缺乏的机制，包括潜在的接口更改（例如，Linux下<code>fork</code>的变体<code>clone</code>），以控制进程线程共享哪些内容。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://xv6.dgs.zone/tranlate_books/book-riscv-rev1/c2/s0.html">link</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">mbfjllybl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://mbfjllybl.github.io/2021/10/26/book-riscv-rev1[%E8%AF%91]%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/">https://mbfjllybl.github.io/2021/10/26/book-riscv-rev1[%E8%AF%91]%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/6-S081/">6.S081</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/10/28/%E9%98%BF%E9%87%8C%E4%BA%8C%E9%9D%A2%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">阿里二面：为什么要分库分表？</div></div></a></div><div class="next-post pull-right"><a href="/2021/10/26/xv6%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E7%A8%8B%E5%BA%8F/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133712.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">xv6编写用户程序</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>Related Articles</span></div><div class="relatedPosts-list"><div><a href="/2021/10/25/book-riscv-rev1%5B%E8%AF%91%5D%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%8E%A5%E5%8F%A3/" title="book-riscv-rev1[译]第一章 操作系统接口"><img class="cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-25</div><div class="title">book-riscv-rev1[译]第一章 操作系统接口</div></div></a></div><div><a href="/2021/10/26/xv6%E7%BC%96%E5%86%99%E7%94%A8%E6%88%B7%E7%A8%8B%E5%BA%8F/" title="xv6编写用户程序"><img class="cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133712.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-26</div><div class="title">xv6编写用户程序</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">mbfjllybl</div><div class="author-info__description">Something for nothing.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E7%AB%A0-%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84"><span class="toc-text">第二章 操作系统架构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%8A%BD%E8%B1%A1%E7%B3%BB%E7%BB%9F%E8%B5%84%E6%BA%90"><span class="toc-text">2.1 抽象系统资源</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%94%A8%E6%88%B7%E6%80%81%E3%80%81%E6%A0%B8%E5%BF%83%E6%80%81%E3%80%81%E4%BB%A5%E5%8F%8A%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">2.2 用户态、核心态、以及系统调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E5%86%85%E6%A0%B8%E7%BB%84%E7%BB%87"><span class="toc-text">2.3 内核组织</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E4%BB%A3%E7%A0%81%EF%BC%88XV6%E6%9E%B6%E6%9E%84%E7%AF%87%EF%BC%89"><span class="toc-text">2.4 代码（XV6架构篇）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-5-%E8%BF%9B%E7%A8%8B%E6%A6%82%E8%BF%B0"><span class="toc-text">2.5 进程概述</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E4%BB%A3%E7%A0%81%EF%BC%88%E5%90%AF%E5%8A%A8XV6%E5%92%8C%E7%AC%AC%E4%B8%80%E4%B8%AA%E8%BF%9B%E7%A8%8B%EF%BC%89"><span class="toc-text">2.6 代码（启动XV6和第一个进程）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E7%9C%9F%E5%AE%9E%E4%B8%96%E7%95%8C"><span class="toc-text">2.7 真实世界</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/words/" title="words"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="words"/></a><div class="content"><a class="title" href="/2023/11/27/words/" title="words">words</a><time datetime="2023-11-27T02:17:21.000Z" title="Created 2023-11-27 10:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132066.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iptables详解"/></a><div class="content"><a class="title" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解">iptables详解</a><time datetime="2023-11-27T01:17:21.000Z" title="Created 2023-11-27 09:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之poll总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结">IO多路复用之poll总结</a><time datetime="2023-09-06T05:50:21.000Z" title="Created 2023-09-06 13:50:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之select总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结">IO多路复用之select总结</a><time datetime="2023-09-06T05:17:21.000Z" title="Created 2023-09-06 13:17:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/25/TEST/" title="TEST"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130377.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST"/></a><div class="content"><a class="title" href="/2023/08/25/TEST/" title="TEST">TEST</a><time datetime="2023-08-25T06:46:20.000Z" title="Created 2023-08-25 14:46:20">2023-08-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By mbfjllybl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/08/10/TASK/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-08-10</span><a class="blog-slider__title" href="2023/08/10/TASK/" alt="">TASK</a><div class="blog-slider__text">TASK</div><a class="blog-slider__button" href="2023/08/10/TASK/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/11/27/words/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-11-27</span><a class="blog-slider__title" href="2023/11/27/words/" alt="">words</a><div class="blog-slider__text">会是什么结局？</div><a class="blog-slider__button" href="2023/11/27/words/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

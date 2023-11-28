@@ -1,0 +1,437 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>进程、线程与协程傻傻分不清？一文带你吃透！ | mbfjllybl's Blog</title><meta name="keywords" content="OS"><meta name="author" content="mbfjllybl"><meta name="copyright" content="mbfjllybl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="进程、线程与协程傻傻分不清？一文带你吃透！前言欢迎来到操作系统系列，依然采用图解 + 大白话的形式来讲解，让小白也能看懂，帮助大家快速科普入门。 本篇开始介绍进程、线程、协程，相信很多小白们对这几个概念理解的不清晰，这里全部给你们安排的明明白白，我们开始进入正文吧。 内容大纲 小故事 小明（操作系统）创办了一家互联网小公司，因为准备同时开发A与B两个软件，所以小明请了两个开发团队来做这件事情，分别">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程、线程与协程傻傻分不清？一文带你吃透！">
+<meta property="og:url" content="https://mbfjllybl.github.io/2021/11/23/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E5%90%83%E9%80%8F%EF%BC%81/index.html">
+<meta property="og:site_name" content="mbfjllybl&#39;s Blog">
+<meta property="og:description" content="进程、线程与协程傻傻分不清？一文带你吃透！前言欢迎来到操作系统系列，依然采用图解 + 大白话的形式来讲解，让小白也能看懂，帮助大家快速科普入门。 本篇开始介绍进程、线程、协程，相信很多小白们对这几个概念理解的不清晰，这里全部给你们安排的明明白白，我们开始进入正文吧。 内容大纲 小故事 小明（操作系统）创办了一家互联网小公司，因为准备同时开发A与B两个软件，所以小明请了两个开发团队来做这件事情，分别">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg">
+<meta property="article:published_time" content="2021-11-23T05:38:33.000Z">
+<meta property="article:modified_time" content="2023-08-10T06:28:56.450Z">
+<meta property="article:author" content="mbfjllybl">
+<meta property="article:tag" content="OS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mbfjllybl.github.io/2021/11/23/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E5%90%83%E9%80%8F%EF%BC%81/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '进程、线程与协程傻傻分不清？一文带你吃透！',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 14:28:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macblack.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">mbfjllybl's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">进程、线程与协程傻傻分不清？一文带你吃透！</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-23T05:38:33.000Z" title="Created 2021-11-23 13:38:33">2021-11-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-10T06:28:56.450Z" title="Updated 2023-08-10 14:28:56">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="进程、线程与协程傻傻分不清？一文带你吃透！"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="进程、线程与协程傻傻分不清？一文带你吃透！"><a href="#进程、线程与协程傻傻分不清？一文带你吃透！" class="headerlink" title="进程、线程与协程傻傻分不清？一文带你吃透！"></a>进程、线程与协程傻傻分不清？一文带你吃透！</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>欢迎来到操作系统系列，依然采用图解 + 大白话的形式来讲解，让小白也能看懂，帮助大家快速科普入门。</p>
+<p>本篇开始介绍进程、线程、协程，相信很多小白们对这几个概念理解的不清晰，这里全部给你们安排的明明白白，我们开始进入正文吧。</p>
+<h2 id="内容大纲"><a href="#内容大纲" class="headerlink" title="内容大纲"></a>内容大纲</h2><p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231209791.png"></p>
+<p><strong>小故事</strong></p>
+<p>小明（操作系统）创办了一家互联网小公司，因为准备同时开发A与B两个软件，所以小明请了两个开发团队来做这件事情，分别是小王开发团队与小李开发团队，可是公司特别小，只有一个房间（CPU），而且房间（CPU）只能容纳一个开发团队，为了能两个软件开发不被耽误，小明（操作系统）决定，上午小王团队开发，下午小李团队开发（这个过程称为调度）。</p>
+<p>小李（进程）与小王（进程）身为团队负责人，他们要操心的事情比较多，需要对软件进行分析整理，做架构设计，最后再把任务细化分配给团队的每个开发人员（线程），在团队交换房间的时候，还需要把整个软件开发进度记录下来，方便下次接着开发，相比开发人员就轻松多了，每个人只负责一小块，需要记录的也只有一小块。</p>
+<p>通过这个小故事，大伙也看出来了，一个进程管理着多个线程，就像团队负责人（进程）管理着多个开发人员（线程）一样。</p>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><h3 id="什么是进程"><a href="#什么是进程" class="headerlink" title="什么是进程"></a><strong>什么是进程</strong></h3><p>你打开网易云音乐会产生一个进程，你打开QQ会产生一个进程，你电脑上运行的程序都是进程，进程就是这么简单暴力。</p>
+<p>现在我们思考一个问题，有一个进程读取硬盘里的文件，这个文件特别大，需要读取很长时间，如果 CPU 一直傻傻的等硬盘返回数据，那 CPU 的利用率是非常低的。</p>
+<p>就像烧开水，你会傻傻等水烧开吗？很明显，这段时间完全可以去做其他的事情（比如玩玩赛博朋克2077），水烧开了再过来把水倒入水杯中，这样不香吗？</p>
+<p>CPU 也是一样，它发现进程在读取硬盘文件，不需要阻塞等待硬盘返回数据，直接去执行其他进程，当硬盘返回数据时，CPU会收到中断的信号，于是 CPU 再回到之前的进程继续运行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231212723.png"></p>
+<p>这种多程序交替执行的方式，就是 CPU 管理多进程初步思想。</p>
+<p>可能会有人问了，交替执行会不会很慢，这个不用担心，因为 CPU 的执行速度与切换速度非常的快，可能就是几十或几百毫秒，超出了人类的感知，一秒钟内可能就交替运行了多个进程，所以给我们产生并行的错觉，其实这叫并发。</p>
+<p>单核多进程交替执行就是并发，多进程在多核运行就是并行。</p>
+<h3 id="进程的控制结构"><a href="#进程的控制结构" class="headerlink" title="进程的控制结构"></a><strong>进程的控制结构</strong></h3><p>创造任何东西的时候，都要先有形，才有物，你造房子、造汽车或造其他东西，都要有设计图（结构），再根据设计图来创造，进程也不例外，它也有属于自己的设计图，那就是 进程控制块（process control block，PCB），后面就简称PCB好了</p>
+<h3 id="PCB的结构信息"><a href="#PCB的结构信息" class="headerlink" title="PCB的结构信息"></a>PCB的结构信息</h3><p>PCB是进程存在的唯一标识，这意味一个进程一定会有对应的PCB，进程消失，PCB也会随之消失</p>
+<ul>
+<li><p>进程描述信息</p>
+</li>
+<li><ul>
+<li>进程唯一的标记符，类似唯一id</li>
+<li>用户标识符，进程归属的用户，用户标识符主要为共享和保护服务</li>
+</ul>
+</li>
+<li><p>进程控制和管理信息</p>
+<ul>
+<li>进程当前状态，比如运行、就绪、阻塞等，作为处理机分配调度的依据</li>
+<li>进程优先级，描述进程抢占处理机的优先级，优先级高的进程可以优先获得处理机</li>
+</ul>
+</li>
+<li><p>资源分配清单</p>
+</li>
+<li><ul>
+<li>用于说明有关内存地址空间或虚拟地址空间的状况，所打开文件的列表和所使用的输入/输出设备信息</li>
+</ul>
+</li>
+<li><p>CPU 相关信息</p>
+<ul>
+<li>指 CPU 中各寄存器值，当进程被切换时，CPU状态信息都必须保存在相应的PCB中，以便进程重新执行时，能再从断点继续执行。</li>
+</ul>
+</li>
+</ul>
+<h3 id="PCB组成的队列"><a href="#PCB组成的队列" class="headerlink" title="PCB组成的队列"></a>PCB组成的队列</h3><p>PCB通过链表的方式进行组织，把具有相同状态的进程链在一起，组成各种队列</p>
+<ul>
+<li>将所有处于就绪状态的进程链在一起，称为就绪队列</li>
+<li>把所有因等待某事件而处于等待状态的进程链在一起就组成各种阻塞队列</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231216214.png"  />
+
+<h3 id="进程的状态"><a href="#进程的状态" class="headerlink" title="进程的状态"></a><strong>进程的状态</strong></h3><p>通过观察，我们发现进程执行的过程遵循这样的运行-暂停-运行规律，虽然看起来十分简单，但是它的背后涉及到了进程状态的转换</p>
+<h4 id="进程三态"><a href="#进程三态" class="headerlink" title="进程三态"></a><strong>进程三态</strong></h4><p>进程的执行期间，至少具备三种基本状态，即运行态、就绪态、阻塞态。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231218035.png"></p>
+<p>上图状态的意义</p>
+<ul>
+<li>运行态（Runing）：时刻进程占用CPU</li>
+<li>就绪态（Ready）：可运行，但因为其他进程正在运行而暂停停止</li>
+<li>阻塞状态（Blocked）：该进程等待某个事件（比如IO读取）停止运行，这时，即使给它CPU控制权，它也无法运行</li>
+</ul>
+<p>上图状态转换流程</p>
+<ol>
+<li>CPU调度绪态进程执行，进入运行状态，时间片使用完了，回到就绪态，等待 CPU 调度</li>
+<li>CPU调度绪态进程执行，进入运行状态，执行IO请求，进入阻塞态，IO请求完成，<strong>CPU收到中断信号</strong>，进入就绪态，等待 CPU 调度</li>
+</ol>
+<h4 id="进程五态"><a href="#进程五态" class="headerlink" title="进程五态"></a><strong>进程五态</strong></h4><p>在三态基础上，做一次细化，出现了另外两个基本状态，创建态和结束态。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231402314.png"></p>
+<p>上图状态的意义</p>
+<ul>
+<li>创建态（new）：进程正在被创建</li>
+<li>就绪态（Ready）：可运行，但因为其他进程正在运行而暂停停止</li>
+<li>运行态（Runing）：时刻进程占用 CPU</li>
+<li>结束态（Exit）：进程正在从系统中消失时的状态</li>
+<li>阻塞状态（Blocked）：该进程等待某个事件（比如IO读取）停止运行，这时，即使给它CPU控制权，它也无法运行</li>
+</ul>
+<p>状态的变迁</p>
+<ul>
+<li>NULL =&gt; 创建态（new）：一个新进程被创建时的第一个状态</li>
+<li>创建态（new） =&gt; 就绪态（Ready）：当进程创建完成，进入就绪态</li>
+<li>就绪态（Ready）=&gt;  运行态（Runing）：CPU 从就绪队列选择进程执行，进入运行态</li>
+<li>运行态（Runing）=&gt; 结束态（Exit）：当进程已经运行完成或出错时，进入结束状</li>
+<li>运行态（Runing） =&gt; 就绪态（Ready）：分配给进程的时间片使用完，进入就绪态</li>
+<li>运行态（Runing） =&gt; 阻塞状态（Blocked）：进程执行等待事件，进入阻塞态</li>
+<li>阻塞状态（Blocked） =&gt; 就绪态（Ready）：进程事件完成，CPU 收到中断信号 ，进入就绪态</li>
+</ul>
+<h4 id="进程七态"><a href="#进程七态" class="headerlink" title="进程七态"></a>进程七态</h4><p>其实进程还有一种状态叫挂起态，挂起态代表该进程不会占用内存空间，它会被换出到硬盘空间保存，当需要使用它的时候，会被换入，加载到内存，挂起态可以分为下面两种</p>
+<ul>
+<li>阻塞挂起状态：进程在外存（硬盘）并等待某个事件的出现</li>
+<li>就绪挂起状态：进程在外存（硬盘），但只要进入内存，即刻立刻运行</li>
+</ul>
+<p>结合上述的两种挂起态，就组成了进程七态</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231412769.png"></p>
+<p>从上图我们发现，创建态、就绪态、运行态，阻塞挂起态、阻塞态都可以转入挂起态，这时问题就产生了，什么情况会转入 挂起态 ，什么情况又会从挂起态转入到非挂起态（就绪态与阻塞态）， 操作系统会根据当前资源状况和性能要求、进程的优先级来进行挂起与激活操作，没有固定的说法。</p>
+<h3 id="进程的上下文切换"><a href="#进程的上下文切换" class="headerlink" title="进程的上下文切换"></a><strong>进程的上下文切换</strong></h3><p>CPU把一个进程切换到另一个进程运行的过程，称为进程上下文切换。</p>
+<p><strong>在说进程上下文切换之前，先来聊聊CPU上下文切换</strong></p>
+<p>CPU上下文是指CPU寄存器和程序计数器</p>
+<ul>
+<li>CPU 寄存器 是CPU内置的容量小，速度极快的缓存</li>
+<li>程序计数器是用来存储是 CPU 正在执行的指令位置或即将执行的下一条指令位置</li>
+</ul>
+<p>CPU 上下文切换就很好理解了，就是把前一个任务的CPU上下文保存起来，然后在加载当前任务的 CPU上下文，最后再跳转到程序计数器所指的新位置，运行任务。</p>
+<p>上面说到所谓的「任务」，主要包含进程、线程和中断。所以，可以根据任务的不同，把 CPU 上下文切换分成：进程上下文切换、线程上下文切换和中断上下文切换。</p>
+<h3 id="进程的上下文是怎么切换的"><a href="#进程的上下文是怎么切换的" class="headerlink" title="进程的上下文是怎么切换的"></a>进程的上下文是怎么切换的</h3><p>首先进程是由内核管理与调度的，所以进程上下文切换发生在内核态，进程上下文切换的内容包含用户空间资源（虚拟内存、栈、全局变量等）与内核空间资源（内核堆栈、寄存器等）。</p>
+<p>在做上下文切换的时候，会把前一个进程的上下文保存到它的PCB中，然后加载当前进程的PCB上下文到 CPU 中，使得进程继续执行</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231417541.png"></p>
+<p>发生进程上下文切换的场景</p>
+<ul>
+<li>为了保证所有进程可以得到公平调度，CPU 时间被划分为一段段的时间片，这些时间片再被轮流分配给各个进程。这样，当某个进程的时间片耗尽了，切换到其它正在等待 CPU 的进程运行</li>
+<li>进程在系统资源不足（比如内存不足）时，要等到资源满足后才可以运行，这个时候进程也会被挂起，并由系统调度其他进程运行。</li>
+<li>当进程通过睡眠函数 sleep 这样的方法将自己主动挂起时，自然也会重新调度。</li>
+<li>当有优先级更高的进程运行时，为了保证高优先级进程的运行，当前进程会被挂起，由高优先级进程来运行</li>
+<li>发生硬件中断时，CPU 上的进程会被中断挂起，转而执行内核中的中断服务程序。</li>
+</ul>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2><h3 id="什么是线程"><a href="#什么是线程" class="headerlink" title="什么是线程"></a><strong>什么是线程</strong></h3><p>在早期操作系统都是以进程为独立运行的基本单位，直到后面，计算机科学家又提出了更小的能独立运行的基本单位，它就是线程。</p>
+<p>在现代操作系统，进程是最小的资源分配单位，线程是最小的运行单位，一个进程下面能有一个或多个线程，每个线程都有独立一套的寄存器和栈，这样可以确保线程的控制流是相对独立的。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231418883.png"></p>
+<p>线程带来的好处有以下几点</p>
+<ul>
+<li>一个进程中可以同时存在多个线程</li>
+<li>让进程具备多任务并行处理能力</li>
+<li>同进程下的各个线程之间可以共享进程资源 （同进程内的多线程通信十分简单高效）</li>
+<li>更轻量与高效</li>
+</ul>
+<p>线程带来的坏处有以下几点</p>
+<ul>
+<li>因为进程资源共享，所以会产生资源竞争，需要通过锁机制来协同</li>
+<li>当进程中的一个线程奔溃时，会导致其所属进程的所有线程奔溃（一般游戏的用户设计不会采用多线程方式）</li>
+</ul>
+<h3 id="线程与进程的对比"><a href="#线程与进程的对比" class="headerlink" title="线程与进程的对比"></a><strong>线程与进程的对比</strong></h3><ul>
+<li>进程是最小的资源（包括内存、打开的文件等）分配单位，线程是最小的运行单位</li>
+<li>进程拥有一个完整的资源平台，而线程只独享必不可少的资源，如寄存器和栈</li>
+<li>线程同样具有就绪、阻塞、执行三种基本状态，同样具有状态之间的转换关系（和进程大同小异）</li>
+<li>线程的创建、终止时间比进程快，因为进程在创建的过程中，还需要资源管理信息，比如内存管理信息、文件管理信息，所以线程在创建的过程中，不会涉及这些资源管理信息，而是共享它们（线程管理的资源较少）</li>
+<li>同一个进程内的线程切换比进程切换快，因为线程具有相同的地址空间（虚拟内存共享），这意味着同一个进程的线程都具有同一个页表，那么在切换的时候不需要切换页表。而对于进程之间的切换，切换的时候要把页表给切换掉，而页表的切换过程开销是比较大的</li>
+<li>由于同一进程的各线程间共享内存和文件资源，那么在线程之间数据传递的时候，就不需要经过内核了，这就使得线程之间的数据交互效率更高了</li>
+</ul>
+<p>线程比进程不管是时间效率，还是空间效率都要高</p>
+<h3 id="线程的上下文切换"><a href="#线程的上下文切换" class="headerlink" title="线程的上下文切换"></a><strong>线程的上下文切换</strong></h3><p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231424534.png"></p>
+<p>当进程只有一个线程时，可以认为进程等于线程，线程上下文的切换分两种情况</p>
+<ol>
+<li>不同进程的线程，切换的过程就跟进程上下文切换一样</li>
+<li>两个线程是属于同一个进程，因为虚拟内存是共享的，所以在切换时，虚拟内存这些资源就保持不动，只需要切换线程的私有数据、寄存器等不共享的数据</li>
+</ol>
+<p>所以线程的上下文切换相比进程，开销要小很多</p>
+<h3 id="线程的模型"><a href="#线程的模型" class="headerlink" title="线程的模型"></a><strong>线程的模型</strong></h3><p>在说线程模式之前，先介绍3个概念</p>
+<ul>
+<li>内核线程：在内核空间就实现的线程，由内核管理</li>
+<li>用户线程：在用户空间实现的线程，不归内核管理，是由用户态通过线程库完成线程的管理（用户态是指线程或进程在用户空间运行）</li>
+<li>轻量级进程：在内核中来支持用户线程（用户线程与内核线程的中间层，内核线程的高度抽象）</li>
+</ul>
+<h3 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h3><p>因为内核线程是由内核空间管理，所以它的 结构线程控制块（Thread Control Block, TCB）在内核空间，操作系统对TCB是可见的</p>
+<p>内核线程</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231426929.png"></p>
+<p>内核线程有什么优点</p>
+<ul>
+<li>内核线程的由内核空间管理，线程的创建、销毁、调度等，都不用你操心，全自动化，属于智能型</li>
+<li>内核线程能利用cpu多核的特性，实现并行执行（因为由内核管理，非常智能）</li>
+<li>内核线程阻塞，不会影响其他内核线程（因为由内核管理，非常智能）</li>
+</ul>
+<p>内核线程有什么缺点</p>
+<ul>
+<li>因为是内核管理，所以内核线程的大部分操作都涉及到内核态，即需要从用户态切换到内核态，开销较大</li>
+<li>因为内核资源有限，所以无法大量创建内核线程</li>
+</ul>
+<h3 id="用户线程"><a href="#用户线程" class="headerlink" title="用户线程"></a>用户线程</h3><p>因为用户线程在用户空间，是由态通过线程库来管理，所以它的结构线程控制块（Thread Control Block, TCB）也是在线程库里面，对于操作系统而言是看不到TCB的，它只能看到整个进程的PCB（内核无法管理用户线程，也感知不到用户线程）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231427159.png"></p>
+<p>用户线程有什么优点</p>
+<ul>
+<li>因为用户线程创建、销毁、调度等都不走内核态，直接在用户态进行操作，所以速度特别快</li>
+<li>不依赖内核，可用于不支持线程技术的操作系统</li>
+<li>可以大量创建用户线程，不消耗内核资源</li>
+</ul>
+<p>用户线程有什么缺点</p>
+<ul>
+<li>用户线程创建、销毁、调度等需要自己实现相应线程库</li>
+<li>用户线程阻塞会导致整个进程内的其他用户线程阻塞（整个进程阻塞），因为内核感知不到用户线程，所以无法去调度其他用户线程</li>
+<li>无法利用CPU多核特性，还是因为内核感知不到用户线程</li>
+</ul>
+<h3 id="轻量级进程（Light-weight-process，LWP）"><a href="#轻量级进程（Light-weight-process，LWP）" class="headerlink" title="轻量级进程（Light-weight process，LWP）"></a>轻量级进程（Light-weight process，LWP）</h3><p>轻量级进程（Light-weight process，LWP）可以理解成内核线程的高级抽象，一个进程可以有一个或多个LWP，因为每个LWP与内核线程一对一映射，所以LWP都是由一个内核线程支持（用户线程关联LWP，即成为内核支持的用户线程）。</p>
+<p>在大多数系统中，LWP与普通进程的区别也在于它只有一个最小的执行上下文和调度程序所需的统计信息。一般来说，一个进程代表程序的一个实例，而LWP代表程序的执行线程，因为一个执行线程不像进程那样需要那么多状态信息，所以LWP也不带有这样的信息。</p>
+<h3 id="一对一模型（内核级线程模型）"><a href="#一对一模型（内核级线程模型）" class="headerlink" title="一对一模型（内核级线程模型）"></a>一对一模型（内核级线程模型）</h3><p>LWP就是一对一模型，即进程只需要创建使用LWP，因为一个LWP由一个内核线程支持，所以最终是内核管理线程，可以调度到其他处理器上（再简单点解释，直接使用内核线程）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231432713.png"></p>
+<p>一对一模型（1:1）的优缺点就不多说了，上面介绍内核线程的时候已经说过了，<strong>但是值得一提的是，jvm采用该模型实现线程，所以在Java中启动一个线程需要谨慎</strong></p>
+<h3 id="一对多模型（用户级线程模型）"><a href="#一对多模型（用户级线程模型）" class="headerlink" title="一对多模型（用户级线程模型）"></a>一对多模型（用户级线程模型）</h3><p>一对多模型，即多个用户级线程对用到同一个LWP上实现，因为是用户态通过用户空间的线程库对线程管理，所以速度特别快，不会涉及到用户态与内核态的转换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231432385.png"></p>
+<p>一对多模型（n:1）的优点缺点体现在用户级线程上面，<strong>用户线程的优缺点前面说过，这里不做概述，值得一提的是 Python 中的协程就是通过该模型实现。</strong></p>
+<h3 id="多对多模型（两级线程模型）"><a href="#多对多模型（两级线程模型）" class="headerlink" title="多对多模型（两级线程模型）"></a>多对多模型（两级线程模型）</h3><p>多对多模型是集各家所长诞生的产物，它充分吸收前两种线程模型的优点且尽量避免它们的缺点。</p>
+<p>首先它区别于多对一模型，多对多模型进程内的多用户线程可以绑定不同的内核线程，这点与一对一模型类似，其次又区别于一对一模型，进程内的多用户线程与内核线程不是一对一绑定，而是动态绑定，当某个内核线程因绑定的用户线程执行阻塞操作，让出 CPU 时，绑定该内核线程的其他用户线程可以解绑，重新绑定到其他内核线程继续运行。</p>
+<p>所以多对多模型（m:n），即不是多对一模型完全靠自己实现的线程库调度，也不是一对一模型完全靠操作系统调度，而是一个中间态系统（负责自身调度与操作系统调度的协同工作），<strong>最后提一句Go语言使用的是多对多模型，这也是其高并发的原因，它的线程模型与Java中的ForkJoinPool非常类似。</strong></p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231433682.png"></p>
+<p>多对多模型优点</p>
+<ul>
+<li>兼具多对一模型的轻量</li>
+<li>由于对应了多个内核线程，则一个用户线程阻塞时，其他用户线程仍然可以执行</li>
+<li>由于对应了多个内核线程，则可以实现较完整的调度、优先级等；</li>
+</ul>
+<p>多对多模型缺点</p>
+<ul>
+<li>实现复杂（因为这种模型的高度复杂性，操作系统内核开发者一般不会使用，所以更多时候是作为第三方库的形式出现）</li>
+</ul>
+<h2 id="调度"><a href="#调度" class="headerlink" title="调度"></a>调度</h2><h3 id="调度原则"><a href="#调度原则" class="headerlink" title="调度原则"></a><strong>调度原则</strong></h3><h4 id="CPU-利用率"><a href="#CPU-利用率" class="headerlink" title="CPU 利用率"></a>CPU 利用率</h4><ul>
+<li>运行程序发生了I/O 事件的请求，因此阻塞，导致进程在等待硬盘的数据返回。这样的过程，势必会造成 CPU 突然的空闲。所以为了提高 CPU 利用率，发生等待事件使 CPU 空闲的情况下，调度程序需要从就绪队列中选择一个进程来运行。（PS：调度程序应确保 CPU 一直保持匆忙的状态，可提高 CPU 的利用率）</li>
+</ul>
+<h4 id="系统吞吐量"><a href="#系统吞吐量" class="headerlink" title="系统吞吐量"></a>系统吞吐量</h4><ul>
+<li>程序执行某个任务花费的时间会比较长，如果这个程序一直占用着 CPU，会造成系统吞吐量的降低。所以要提高系统的吞吐率，调度程序要权衡长任务和短任务进程的运行完成数量。（吞吐量表示的是单位时间内 CPU 完成进程的数量，长作业的进程会占用较长的 CPU 资源，因此会降低吞吐量，相反，短作业的进程会提升系统吞吐量）</li>
+</ul>
+<h4 id="周转时间"><a href="#周转时间" class="headerlink" title="周转时间"></a>周转时间</h4><ul>
+<li>从进程开始到结束的过程中，实际上是包含两个时间，分别是进程运行时间和进程等待时间，这两个时间总和就称为周转时间。进程的周转时间越小越好，如果进程的等待时间很长，而运行时间很短，那周转时间就很长，调度程序应该避免这种情况发生。（周转时间是进程运行和阻塞时间总和，一个进程的周转时间越小越好）</li>
+</ul>
+<h4 id="等待时间"><a href="#等待时间" class="headerlink" title="等待时间"></a>等待时间</h4><ul>
+<li>处于就绪队列的进程，也不能等太久，希望这个等待的时间越短越好，因为可以使进程更快的在 CPU 中执行。所以就绪队列中，进程的等待时间，也是调度程序所需要考虑的原则（这个等待时间不是阻塞状态的时间，而是进程处于就绪队列的时间，等待时间越长，用户越不满意）。</li>
+</ul>
+<h4 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h4><ul>
+<li>对于鼠标、键盘这种交互式比较强的应用，我们当然希望它的响应时间越快越好，否则就会影响用户体验了。所以，对于交互式比较强的应用，响应时间也是调度程序需要考虑的原则（用户提交请求到系统第一次产生响应所花费的时间，在交互式系统中，响应时间是衡量调度算法好坏的主要标准）。</li>
+</ul>
+<h3 id="调度算法"><a href="#调度算法" class="headerlink" title="调度算法"></a><strong>调度算法</strong></h3><p>不同的算法适用不同的场景，下面介绍几个单核中常见的调度算法</p>
+<h4 id="先来先服务算法（First-Come-First-Severd-FCFS）"><a href="#先来先服务算法（First-Come-First-Severd-FCFS）" class="headerlink" title="先来先服务算法（First Come First Severd, FCFS）"></a>先来先服务算法（First Come First Severd, FCFS）</h4><p>先来先服务算法简称FCFS，顾名思义，谁先来，谁先被 CPU 执行，后到的就乖乖排队等待，十分简单的算法，CPU每次调度就绪队列的第一个进程，直到进程退出或阻塞，才会把该进程入队到队尾，然后接着继续调度第一个进程，依此类推。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231438524.png"></p>
+<p>FCFS算法看似很公平，但是当一个长作业先运行了，后面的短作业等待的时间就会很长，所以不利于短作业，会降低系统吞吐量。</p>
+<p>FCFS对长作业有利，适用于 CPU 繁忙型作业的系统，而不适用于 I/O 繁忙型作业的系统。</p>
+<h4 id="最短作业优先算法（Shortest-Job-First-SJF）"><a href="#最短作业优先算法（Shortest-Job-First-SJF）" class="headerlink" title="最短作业优先算法（Shortest Job First, SJF）"></a>最短作业优先算法（Shortest Job First, SJF）</h4><p>同样也是顾名思义，它会优先选择运行时间最短的进程，有助于提高系统吞吐量。但是对长作业不利，所以很容易造成一种极端现象。比如，一个长作业在就绪队列等待运行，而这个就绪队列有非常多的短作业，最终使得长作业不断的往后推，周转时间变长，致使长作业长期不会被运行（适用于 I/O 繁忙型作业的系统）。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231437165.png"></p>
+<h4 id="高响应比优先算法-（Highest-Response-Ratio-Next-HRRN）"><a href="#高响应比优先算法-（Highest-Response-Ratio-Next-HRRN）" class="headerlink" title="高响应比优先算法 （Highest Response Ratio Next, HRRN）"></a>高响应比优先算法 （Highest Response Ratio Next, HRRN）</h4><p>因为前面的「先进先出算法」和「最短作业优先算法」都没有很好的权衡短作业和长作业，所以高响应比优先算法主要是权衡了短作业和长作业。</p>
+<p>每次进行进程调度时，先计算「响应比优先权」，然后把「响应比优先权」最高的进程投入运行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231436921.png"></p>
+<p>从上面的公式，可以发现：</p>
+<p>如果两个进程的「等待时间」相同时，「要求的服务时间」越短，「优先权」就越高，这样短作业的进程容易被选中运行（如果等待时间较短，进程的运行时间越短，优先权就会越高 =&gt; 等待时间较短的短作业进程）</p>
+<p>如果两个进程「要求的服务时间」相同时，「等待时间」越长，「优先权」就越高，这就兼顾到了长作业进程，因为进程的响应比可以随时间等待的增加而提高，当其等待时间足够长时，其响应比便可以升到很高，从而获得运行的机会（如果要求服务时间比较长，进程的等待时间越长，优先权就会越高 =&gt; 等待时间较长的长作业进程）</p>
+<h4 id="时间片轮转（Round-Robin-RR）算法"><a href="#时间片轮转（Round-Robin-RR）算法" class="headerlink" title="时间片轮转（Round Robin, RR）算法"></a>时间片轮转（Round Robin, RR）算法</h4><p>时间片轮转是最古老、最简单、最公平且使用最广的算法，给每个进程分配相同时间片（Quantum），允许进程在该时间段中运行。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231436788.png"></p>
+<ul>
+<li>如果时间片用完，进程还在运行，将会把此进程放入就绪队列，并继续调度另外一个进程，依此类推</li>
+<li>如果该进程在时间片结束前阻塞或结束，则调度另外一个进程</li>
+<li>进程时间片用完，需要被重新分配时间片</li>
+</ul>
+<p>需要注意的是，如果时间片设置的太短，会导致CPU上下文切换态频繁，太长又可能引起对短作业进程的响应时间变长，所以时间片设为 20ms~50ms 通常是一个比较合理的折中值</p>
+<h4 id="最高优先级（Highest-Priority-First，HPF）算法"><a href="#最高优先级（Highest-Priority-First，HPF）算法" class="headerlink" title="最高优先级（Highest Priority First，HPF）算法"></a>最高优先级（Highest Priority First，HPF）算法</h4><p>前面的「时间片轮转算法」让所有的进程同等重要，不偏袒谁，大家的运行时间都一样。但是，对于多用户计算机系统就有不同的看法了，它们希望调度是有优先级的，希望调度程序能从就绪队列中选择最高优先级的进程运行，这就是最高优先级（Highest Priority First，HPF）算法。</p>
+<p>进程的优先级可以分为：</p>
+<ul>
+<li>静态优先级：创建进程时候，已经确定优先级，整个运行时间优先级都不会变化</li>
+<li>动态优先级：根据进程的动态变化调整优先级，比如进程运行时间增加，则降低其优先级，如果进程等待时间（就绪队列的等待时间）增加，则提高优先级。</li>
+</ul>
+<p>有两种处理优先级高的方法：</p>
+<ul>
+<li>非抢占式：当就绪队列中出现优先级高的进程，运行完当前进程，再选择优先级高的进程。</li>
+<li>抢占式：当就绪队列中出现优先级高的进程，当前进程挂起，调度优先级高的进程运行。</li>
+</ul>
+<p>但是依然有缺点，可能会导致低优先级的进程永远不会运行。</p>
+<h4 id="多级反馈队列（Multilevel-Feedback-Queue）算法"><a href="#多级反馈队列（Multilevel-Feedback-Queue）算法" class="headerlink" title="多级反馈队列（Multilevel Feedback Queue）算法"></a>多级反馈队列（Multilevel Feedback Queue）算法</h4><p>多级反馈队列（Multilevel Feedback Queue）算法是基于「时间片轮转算法」和「最高优先级算法」演进而来，如同它的名字一样，根据优先级分组成多个队列，在算法中涉及两个概念：</p>
+<ul>
+<li>「多级」表示有多个队列，每个队列优先级从高到低，优先级越高的队列拥有的时间片越短</li>
+<li>「反馈」 表示有新的进程进入优先级高的队列时，停止当前运行进程，去运行优先级高的队列</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231435705.png"></p>
+<p>工作流程：</p>
+<ul>
+<li>多个队列，赋予每个队列不同的优先级，每个队列优先级从高到低，同时优先级越高时间片越短</li>
+<li>新进的进程会被放入第一级队列尾部，按先来先服务的原则排队等待被调度，如果第一级队列时间片用完，还有进程没有执行，把第一级队列剩余的进程放入第二级队列的尾部，依此类推</li>
+<li>当优先级高队列为空，正在运行低优先级队列的进程时，有新进程进入高优先级队列，这时立即停止当前运行进程，把当前进程放入原队列尾部，转而去运行高优先级队列的进程。</li>
+</ul>
+<p>可以发现，对于短作业可能可以在第一级队列很快被处理完。对于长作业，如果在第一级队列处理不完，可以移入下次队列等待被执行，虽然等待的时间变长了，但是运行时间也会更长了，很好的兼顾了长短作业，同时有较好的响应时间。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/jhOSjVyRA6rNKqVT2pKMIQ">link</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">mbfjllybl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://mbfjllybl.github.io/2021/11/23/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E5%90%83%E9%80%8F%EF%BC%81/">https://mbfjllybl.github.io/2021/11/23/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E5%90%83%E9%80%8F%EF%BC%81/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/OS/">OS</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/25/IntelliJ-IDEA%E4%B8%AD%E5%AE%89%E8%A3%85%E7%9A%84%E6%8F%92%E4%BB%B6%E9%9B%86%E5%90%88/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">IntelliJ IDEA中安装的插件集合</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/23/%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%88%B0%E5%BA%95%E5%85%B1%E4%BA%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%EF%BC%9F/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130678.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">线程间到底共享了哪些进程资源？</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">mbfjllybl</div><div class="author-info__description">Something for nothing.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E5%90%83%E9%80%8F%EF%BC%81"><span class="toc-text">进程、线程与协程傻傻分不清？一文带你吃透！</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AE%B9%E5%A4%A7%E7%BA%B2"><span class="toc-text">内容大纲</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B"><span class="toc-text">进程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E8%BF%9B%E7%A8%8B"><span class="toc-text">什么是进程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84"><span class="toc-text">进程的控制结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PCB%E7%9A%84%E7%BB%93%E6%9E%84%E4%BF%A1%E6%81%AF"><span class="toc-text">PCB的结构信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PCB%E7%BB%84%E6%88%90%E7%9A%84%E9%98%9F%E5%88%97"><span class="toc-text">PCB组成的队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%8A%B6%E6%80%81"><span class="toc-text">进程的状态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%89%E6%80%81"><span class="toc-text">进程三态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%BA%94%E6%80%81"><span class="toc-text">进程五态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%83%E6%80%81"><span class="toc-text">进程七态</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">进程的上下文切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E6%98%AF%E6%80%8E%E4%B9%88%E5%88%87%E6%8D%A2%E7%9A%84"><span class="toc-text">进程的上下文是怎么切换的</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B"><span class="toc-text">线程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%BA%BF%E7%A8%8B"><span class="toc-text">什么是线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E4%B8%8E%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AF%B9%E6%AF%94"><span class="toc-text">线程与进程的对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-text">线程的上下文切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="toc-text">线程的模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E7%BA%BF%E7%A8%8B"><span class="toc-text">内核线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E7%BA%BF%E7%A8%8B"><span class="toc-text">用户线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%BB%E9%87%8F%E7%BA%A7%E8%BF%9B%E7%A8%8B%EF%BC%88Light-weight-process%EF%BC%8CLWP%EF%BC%89"><span class="toc-text">轻量级进程（Light-weight process，LWP）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80%E6%A8%A1%E5%9E%8B%EF%BC%88%E5%86%85%E6%A0%B8%E7%BA%A7%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">一对一模型（内核级线程模型）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B%EF%BC%88%E7%94%A8%E6%88%B7%E7%BA%A7%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">一对多模型（用户级线程模型）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A%E6%A8%A1%E5%9E%8B%EF%BC%88%E4%B8%A4%E7%BA%A7%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B%EF%BC%89"><span class="toc-text">多对多模型（两级线程模型）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6"><span class="toc-text">调度</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E5%8E%9F%E5%88%99"><span class="toc-text">调度原则</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CPU-%E5%88%A9%E7%94%A8%E7%8E%87"><span class="toc-text">CPU 利用率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E9%87%8F"><span class="toc-text">系统吞吐量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%A8%E8%BD%AC%E6%97%B6%E9%97%B4"><span class="toc-text">周转时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AD%89%E5%BE%85%E6%97%B6%E9%97%B4"><span class="toc-text">等待时间</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%8D%E5%BA%94%E6%97%B6%E9%97%B4"><span class="toc-text">响应时间</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">调度算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%88%E6%9D%A5%E5%85%88%E6%9C%8D%E5%8A%A1%E7%AE%97%E6%B3%95%EF%BC%88First-Come-First-Severd-FCFS%EF%BC%89"><span class="toc-text">先来先服务算法（First Come First Severd, FCFS）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E7%9F%AD%E4%BD%9C%E4%B8%9A%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95%EF%BC%88Shortest-Job-First-SJF%EF%BC%89"><span class="toc-text">最短作业优先算法（Shortest Job First, SJF）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%AB%98%E5%93%8D%E5%BA%94%E6%AF%94%E4%BC%98%E5%85%88%E7%AE%97%E6%B3%95-%EF%BC%88Highest-Response-Ratio-Next-HRRN%EF%BC%89"><span class="toc-text">高响应比优先算法 （Highest Response Ratio Next, HRRN）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%89%87%E8%BD%AE%E8%BD%AC%EF%BC%88Round-Robin-RR%EF%BC%89%E7%AE%97%E6%B3%95"><span class="toc-text">时间片轮转（Round Robin, RR）算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%80%E9%AB%98%E4%BC%98%E5%85%88%E7%BA%A7%EF%BC%88Highest-Priority-First%EF%BC%8CHPF%EF%BC%89%E7%AE%97%E6%B3%95"><span class="toc-text">最高优先级（Highest Priority First，HPF）算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E7%BA%A7%E5%8F%8D%E9%A6%88%E9%98%9F%E5%88%97%EF%BC%88Multilevel-Feedback-Queue%EF%BC%89%E7%AE%97%E6%B3%95"><span class="toc-text">多级反馈队列（Multilevel Feedback Queue）算法</span></a></li></ol></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/words/" title="words"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="words"/></a><div class="content"><a class="title" href="/2023/11/27/words/" title="words">words</a><time datetime="2023-11-27T02:17:21.000Z" title="Created 2023-11-27 10:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132066.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iptables详解"/></a><div class="content"><a class="title" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解">iptables详解</a><time datetime="2023-11-27T01:17:21.000Z" title="Created 2023-11-27 09:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之poll总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结">IO多路复用之poll总结</a><time datetime="2023-09-06T05:50:21.000Z" title="Created 2023-09-06 13:50:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之select总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结">IO多路复用之select总结</a><time datetime="2023-09-06T05:17:21.000Z" title="Created 2023-09-06 13:17:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/25/TEST/" title="TEST"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130377.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST"/></a><div class="content"><a class="title" href="/2023/08/25/TEST/" title="TEST">TEST</a><time datetime="2023-08-25T06:46:20.000Z" title="Created 2023-08-25 14:46:20">2023-08-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By mbfjllybl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/08/10/TASK/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-08-10</span><a class="blog-slider__title" href="2023/08/10/TASK/" alt="">TASK</a><div class="blog-slider__text">TASK</div><a class="blog-slider__button" href="2023/08/10/TASK/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/11/27/words/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-11-27</span><a class="blog-slider__title" href="2023/11/27/words/" alt="">words</a><div class="blog-slider__text">会是什么结局？</div><a class="blog-slider__button" href="2023/11/27/words/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

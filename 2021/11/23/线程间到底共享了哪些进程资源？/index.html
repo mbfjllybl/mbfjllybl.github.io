@@ -1,0 +1,309 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>线程间到底共享了哪些进程资源？ | mbfjllybl's Blog</title><meta name="keywords" content="线程"><meta name="author" content="mbfjllybl"><meta name="copyright" content="mbfjllybl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="线程间到底共享了哪些进程资源？进程和线程这两个话题是程序员绕不开的，操作系统提供的这两个抽象概念实在是太重要了。 关于进程和线程有一个极其经典的问题，那就是进程和线程的区别是什么？相信很多同学对答案似懂非懂。 记住了不一定真懂。 关于这个问题有的同学可能已经“背得”滚瓜烂熟了：“进程是操作系统分配资源的单位，线程是调度的基本单位，线程之间共享进程资源”。 可是你真的理解了上面最后一句话吗？到底线程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线程间到底共享了哪些进程资源？">
+<meta property="og:url" content="https://mbfjllybl.github.io/2021/11/23/%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%88%B0%E5%BA%95%E5%85%B1%E4%BA%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%EF%BC%9F/index.html">
+<meta property="og:site_name" content="mbfjllybl&#39;s Blog">
+<meta property="og:description" content="线程间到底共享了哪些进程资源？进程和线程这两个话题是程序员绕不开的，操作系统提供的这两个抽象概念实在是太重要了。 关于进程和线程有一个极其经典的问题，那就是进程和线程的区别是什么？相信很多同学对答案似懂非懂。 记住了不一定真懂。 关于这个问题有的同学可能已经“背得”滚瓜烂熟了：“进程是操作系统分配资源的单位，线程是调度的基本单位，线程之间共享进程资源”。 可是你真的理解了上面最后一句话吗？到底线程">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130678.jpg">
+<meta property="article:published_time" content="2021-11-23T03:38:33.000Z">
+<meta property="article:modified_time" content="2023-08-10T06:28:56.448Z">
+<meta property="article:author" content="mbfjllybl">
+<meta property="article:tag" content="线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130678.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mbfjllybl.github.io/2021/11/23/%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%88%B0%E5%BA%95%E5%85%B1%E4%BA%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%EF%BC%9F/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '线程间到底共享了哪些进程资源？',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 14:28:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macblack.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130678.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">mbfjllybl's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">线程间到底共享了哪些进程资源？</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-23T03:38:33.000Z" title="Created 2021-11-23 11:38:33">2021-11-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-10T06:28:56.448Z" title="Updated 2023-08-10 14:28:56">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">操作系统</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="线程间到底共享了哪些进程资源？"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="线程间到底共享了哪些进程资源？"><a href="#线程间到底共享了哪些进程资源？" class="headerlink" title="线程间到底共享了哪些进程资源？"></a>线程间到底共享了哪些进程资源？</h1><p>进程和线程这两个话题是程序员绕不开的，操作系统提供的这两个抽象概念实在是太重要了。</p>
+<p>关于进程和线程有一个<strong>极其经典</strong>的问题，那就是进程和线程的区别是什么？相信很多同学对答案似懂非懂。</p>
+<p><strong>记住了不一定真懂</strong>。</p>
+<p>关于这个问题有的同学可能已经“背得”滚瓜烂熟了：“进程是操作系统分配资源的单位，线程是调度的基本单位，<strong>线程之间共享进程资源</strong>”。</p>
+<p>可是你真的理解了上面最后一句话吗？<strong>到底线程之间共享了哪些进程资源，共享资源意味着什么？共享资源这种机制是如何实现的？</strong>对此如果你没有答案的话，那么这意味着<strong>你几乎很难写出能正确工作的多线程程序</strong>，同时也意味着这篇文章就是为你准备的。</p>
+<p><strong>逆向思考</strong></p>
+<p>查理芒格经常说这样一句话：“反过来想，总是反过来想”，如果你对线程之间共享了哪些进程资源这个问题想不清楚的话那么也可以反过来思考，那就是<strong>有哪些资源是线程私有的</strong>。</p>
+<p><strong>线程私有资源</strong></p>
+<p>线程运行的本质其实就是函数的执行，函数的执行总会有一个源头，这个源头就是所谓的入口函数，CPU从入口函数开始执行从而形成一个执行流，只不过我们人为的给执行流起一个名字，这个名字就叫线程。</p>
+<p>既然线程运行的本质就是函数的执行，那么函数执行都有哪些信息呢？</p>
+<p>在《<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU2NTYyOTQ4OQ==&mid=2247484963&idx=1&sn=542d3bec57c6a9dfc17c83005fd2c030&chksm=fcb9817dcbce086b10cb44cad7c9777b0088fb8d9d6baf71ae36a9b03e1f8ef5bec62b79d6f7&scene=21#wechat_redirect">函数运行时在内存中是什么样子</a>》这篇文章中我们说过，函数运行时的信息保存在栈帧中，栈帧中保存了函数的返回值、调用其它函数的参数、该函数使用的局部变量以及该函数使用的寄存器信息，如图所示，假设函数A调用函数B：</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231134697.png" style="zoom:67%;" />
+
+<p>此外，CPU执行指令的信息保存在一个叫做程序计数器的寄存器中，通过这个寄存器我们就知道接下来要执行哪一条指令。由于操作系统随时可以暂停线程的运行，因此我们保存以及恢复程序计数器中的值就能知道线程是从哪里暂停的以及该从哪里继续运行了。</p>
+<p>由于线程运行的本质就是函数运行，函数运行时信息是保存在栈帧中的，因此每个线程都有自己独立的、私有的栈区。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231136337.png" style="zoom:67%;" />
+
+<p>同时函数运行时需要额外的寄存器来保存一些信息，像部分局部变量之类，这些寄存器也是线程私有的，<strong>一个线程不可能访问到另一个线程的这类寄存器信息</strong>。</p>
+<p>从上面的讨论中我们知道，到目前为止，所属线程的栈区、程序计数器、栈指针以及函数运行使用的寄存器是线程私有的。</p>
+<p>以上这些信息有一个统一的名字，就是<strong>线程上下文</strong>，thread context。</p>
+<p>我们也说过操作系统调度线程需要随时中断线程的运行并且需要线程被暂停后可以继续运行，操作系统之所以能实现这一点，依靠的就是线程上下文信息。</p>
+<p>现在你应该知道哪些是线程私有的了吧。除此之外，剩下的都是线程间共享资源。那么剩下的还有什么呢？还有图中的这些。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231138374.png" style="zoom:67%;" />
+
+<p>这其实就是进程地址空间的样子，也就是说线程共享进程地址空间中除线程上下文信息中的所有内容，意思就是说线程可以<strong>直接读取</strong>这些内容。</p>
+<p>接下来我们分别来看一下这些区域。</p>
+<p><strong>代码区</strong></p>
+<p>进程地址空间中的代码区，这里保存的是什么呢？从名字中有的同学可能已经猜到了，没错，这里保存的就是我们写的代码，<strong>更准确的是编译后的可执行机器指令</strong>。</p>
+<p>那么这些机器指令又是从哪里来的呢？答案是从可执行文件中加载到内存的，可执行程序中的代码区就是用来初始化进程地址空间中的代码区的。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231140606.png" style="zoom:67%;" />
+
+<p>线程之间共享代码区，<strong>这就意味着程序中的任何一个函数都可以放到线程中去执行，不存在某个函数只能被特定线程执行的情况</strong>。</p>
+<p><strong>数据区</strong></p>
+<p>进程地址空间中的数据区，这里存放的就是所谓的全局变量。</p>
+<p>什么是全局变量？所谓全局变量就是那些你定义在函数之外的变量，在C语言中就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> c; <span class="comment">// 全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">()</span> &#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中字符c就是全局变量，存放在进程地址空间中的数据区。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231141083.png" style="zoom:67%;" />
+
+<p>在程序员运行期间，也就是run time，<strong>数据区中的全局变量有且仅有一个实例，所有的线程都可以访问到该全局变量</strong>。</p>
+<p>值得注意的是，在C语言中还有一类特殊的“全局变量”，那就是用static关键词修饰过的变量，就像这样：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">func</span><span class="params">()</span> &#123; <span class="type">static</span> <span class="type">int</span> a = <span class="number">10</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意到，<strong>虽然变量a定义在函数内部，但变量a依然具有全局变量的特性</strong>，也就是说变量a放在了进程地址空间的数据区域，<strong>即使函数执行完后该变量依然存在</strong>，而普通的局部变量随着函数调用结束和函数栈帧一起被回收掉了，但这里的变量a不会被回收，因为其被放到了数据区。</p>
+<p>这样的变量对每个线程来说也是可见的，也就是说每个线程都可以访问到该变量。</p>
+<p><strong>堆区</strong></p>
+<p>堆区是程序员比较熟悉的，我们在C/C++中用malloc或者new出来的数据就存放在这个区域，很显然，<strong>只要知道变量的地址，也就是指针，任何一个线程都可以访问指针指向的数据</strong>，因此堆区也是线程共享的属于进程的资源。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231144041.png" style="zoom:67%;" />
+
+<p><strong>栈区</strong></p>
+<p>唉，等等！刚不是说栈区是线程私有资源吗，怎么这会儿又说起栈区了？</p>
+<p>确实，从线程这个抽象的概念上来说，栈区是线程私有的，然而从实际的实现上看，<strong>栈区属于线程私有这一规则并没有严格遵守</strong>，这句话是什么意思？</p>
+<p>通常来说，注意这里的用词是<strong>通常</strong>，通常来说栈区是线程私有，既然有通常就有不通常的时候。</p>
+<p>不通常是因为不像进程地址空间之间的严格隔离，线程的栈区没有严格的隔离机制来保护，因此如果一个线程能拿到来自另一个线程栈帧上的指针，<strong>那么该线程就可以改变另一个线程的栈区</strong>，也就是说这些线程可以任意修改本属于另一个线程栈区中的变量。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231145117.png" style="zoom:67%;" />
+
+<p>这从某种程度上给了程序员极大的便利，但同时，这也会导致极其难以排查到的bug。</p>
+<p>试想一下你的程序运行的好好的，结果某个时刻突然出问题，定位到出问题代码行后根本就排查不到原因，你当然是排查不到问题原因的，因为你的程序本来就没有任何问题，是别人的问题导致你的函数栈帧数据被写坏从而产生bug，这样的问题通常很难排查到原因，需要对整体的项目代码非常熟悉，常用的一些debug工具这时可能已经没有多大作用了。</p>
+<p>说了这么多，那么同学可能会问，一个线程是怎样修改本属于其它线程的数据呢？接下来我们用一个代码示例讲解一下。</p>
+<p><strong>修改线程私有数据</strong>，不要担心，以下代码足够简单：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">thread</span><span class="params">(<span class="type">void</span>* var)</span> &#123;</span><br><span class="line">    <span class="type">int</span>* p = (<span class="type">int</span>*)var;</span><br><span class="line">    *p = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="type">pthread_t</span> tid;</span><br><span class="line">    </span><br><span class="line">    pthread_create(&amp;tid, <span class="literal">NULL</span>, thread, (<span class="type">void</span>*)&amp;a);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这段代码是什么意思呢？</p>
+<p>首先我们在主线程的栈区定义了一个局部变量，也就是 <code>int a= 1</code>这行代码，现在我们已经知道了，局部变量a属于主线程私有数据，但是，接下来我们创建了另外一个线程。</p>
+<p>在新创建的这个线程中，我们将变量a的地址以参数的形式传给了新创建的线程，然后我来看一下thread函数。</p>
+<p>在新创建的线程中，我们获取到了变量a的指针，然后将其修改为了2，也就是这行代码，我们在新创建的线程中修改了本属于主线程的私有数据。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231148384.png" style="zoom:67%;" />
+
+<p>现在你应该看明白了吧，尽管栈区是线程的私有数据，但由于栈区没有添加任何保护机制，一个线程的栈区对其它线程是可以见的，也就是说我们可以修改属于任何一个线程的栈区。</p>
+<p>就像我们上文说得到的，这给程序员带来了极大便利的同时也带来了无尽的麻烦，试想上面这段代码，如果确实是项目需要那么这样写代码无可厚非，但如果上述新创建线程是因bug修改了属于其它线程的私有数据的话，那么产生问题就很难定位了，<strong>因为bug可能距离问题暴露的这行代码已经很远了</strong>，这样的问题通常难以排查。</p>
+<p><strong>动态链接库</strong></p>
+<p>进程地址空间中除了以上讨论的这些实际上还有其它内容，还有什么呢？</p>
+<p>这就要从可执行程序说起了。</p>
+<p>什么是可执行程序呢？在Windows中就是我们熟悉的exe文件，在Linux世界中就是ELF文件，这些可以被操作系统直接运行的程序就是我们所说的可执行程序。</p>
+<p>那么可执行程序是怎么来的呢？有的同学可能会说，废话，不就是编译器生成的吗？实际上这个答案只答对了一半。</p>
+<p>假设我们的项目比较简单只有几个源码文件，编译器是怎么把这几个源代码文件转换为最终的一个可执行程序呢？</p>
+<p>原来，编译器在将可执行程序翻译成机器指令后，接下来还有一个重要的步骤，这就是链接，链接完成后生成的才是可执行程序。</p>
+<p>完成链接这一过程的就是链接器。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231150213.png" style="zoom:67%;" />
+
+<p>其中链接器可以有两种链接方式，这就是<strong>静态链接</strong>和<strong>动态链接</strong>。</p>
+<p>静态链接的意思是说把所有的机器指令一股脑全部打包到可执行程序中，动态链接的意思是我们不把动态链接的部分打包到可执行程序，而是在可执行程序运行起来后去内存中找动态链接的那部分代码，这就是所谓的静态链接和动态链接。</p>
+<p>动态链接一个显而易见的好处就是可执行程序的大小会很小，就像我们在Windows下看一个exe文件可能很小，<strong>那么该exe很可能是动态链接的方式生成的</strong>。</p>
+<p>而动态链接的部分生成的库就是我们熟悉的动态链接库，在Windows下是以DLL结尾的文件，在Linux下是以so结尾的文件。</p>
+<p>说了这么多，这和线程共享资源有什么关系呢？</p>
+<p>原来如果一个程序是动态链接生成的，<strong>那么其地址空间中有一部分包含的就是动态链接库</strong>，否则程序就运行不起来了，这一部分的地址空间也是被所有线程所共享的。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231152328.png" style="zoom:67%;" />
+
+<p>也就是说进程中的所有线程都可以使用动态链接库中的代码。</p>
+<p>以上其实是关于链接这一主题的极简介绍，关于链接这一话题的详细讨论可以参考《<a target="_blank" rel="noopener" href="http://mp.weixin.qq.com/s?__biz=MzU2NTYyOTQ4OQ==&mid=2247483677&idx=1&sn=09212e8e7ecf7d58bfee53fa04e74911&chksm=fcb98643cbce0f5503916804ffe95bdd30917c9829429bb7fca7191b84f8171409db83e6e28c&scene=21#wechat_redirect">彻底理解链接器</a>》系列文章。</p>
+<p><strong>文件</strong></p>
+<p>最后，如果程序在运行过程中打开了一些文件，那么进程地址空间中还保存有打开的文件信息，进程打开的文件也可以被所有的线程使用，这也属于线程间的共享资源。</p>
+<p><strong>One More Thing：TLS</strong></p>
+<p>实际上关于线程私有数据还有一项没有详细讲解，因为再讲下去本篇就撑爆了，而且本篇已经讲解的部分足够用了，剩下的这一点仅仅作为补充，也就是选学部分，如果你对此不感兴趣的话完全可以跳过，没有问题。</p>
+<p>关于线程私有数据还有一项技术，那就是线程局部存储，Thread Local Storage，TLS。</p>
+<p>这是什么意思呢？</p>
+<p>其实从名字上也可以看出，所谓线程局部存储，是指存放在该区域中的变量有两个含义：</p>
+<ul>
+<li>存放在该区域中的变量是全局变量，所有线程都可以访问</li>
+<li>虽然看上去所有线程访问的都是同一个变量，但该全局变量独属于一个线程，一个线程对此变量的修改对其他线程不可见。</li>
+</ul>
+<p>说了这么多还是没懂有没有？没关系，接下来看完这两段代码还不懂你来打我。</p>
+<p>我们先来看第一段代码，不用担心，这段代码非常非常的简单：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">1</span>; <span class="comment">// 全局变量</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">print_a</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ++a;</span><br><span class="line">    <span class="built_in">print_a</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">thread <span class="title">t1</span><span class="params">(run)</span></span>;</span><br><span class="line">    t1.<span class="built_in">join</span>();</span><br><span class="line"></span><br><span class="line">    <span class="function">thread <span class="title">t2</span><span class="params">(run)</span></span>;</span><br><span class="line">    t2.<span class="built_in">join</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>怎么样，这段代码足够简单吧，上述代码是用C++11写的，我来讲解下这段代码是什么意思。</p>
+<ul>
+<li>首先我们创建了一个全局变量a，初始值为1</li>
+<li>其次我们创建了两个线程，每个线程对变量a加1</li>
+<li>线程的join函数表示该线程运行完毕后才继续运行接下来的代码</li>
+</ul>
+<p>那么这段代码的运行起来会打印什么呢？</p>
+<p>全局变量a的初始值为1，第一个线程加1后a变为2，因此会打印2；第二个线程再次加1后a变为3，因此会打印3，让我们来看一下运行结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
+
+<p>看来我们分析的没错，全局变量在两个线程分别加1后最终变为3。</p>
+<p>接下来我们对变量a的定义稍作修改，其它代码不做改动：</p>
+<p><code>__thread int a = 1; // 线程局部存储</code></p>
+<p>我们看到全局变量a前面加了一个__thread关键词用来修饰，也就是说我们告诉编译器把变量a放在线程局部存储中，那这会对程序带来哪些改变呢？</p>
+<p>简单运行一下就知道了：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+
+<p>和你想的一样吗？有的同学可能会大吃一惊，为什么我们明明对变量a加了两次，但第二次运行为什么还是打印2而不是3呢？</p>
+<p>想一想这是为什么。</p>
+<p>原来，这就是线程局部存储的作用所在，线程t1对变量a的修改不会影响到线程t2，线程t1在将变量a加到1后变为2，但对于线程t2来说此时变量a依然是1，因此加1后依然是2。</p>
+<p>因此，<strong>线程局部存储可以让你使用一个独属于线程的全局变量</strong>。也就是说，虽然该变量可以被所有线程访问，但该变量在每个线程中都有一个副本，一个线程对改变量的修改不会影响到其它线程。</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111231157968.png" style="zoom:67%;" />
+
+<p><strong>总结</strong></p>
+<p>怎么样，没想到教科书上一句简单的“线程共享进程资源”背后竟然会有这么多的知识点吧，<strong>教科书上的知识看似容易，但，并不简单</strong>。</p>
+<p>希望本篇能对大家理解进程、线程能有多帮助。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1768025">link</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">mbfjllybl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://mbfjllybl.github.io/2021/11/23/%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%88%B0%E5%BA%95%E5%85%B1%E4%BA%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%EF%BC%9F/">https://mbfjllybl.github.io/2021/11/23/%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%88%B0%E5%BA%95%E5%85%B1%E4%BA%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%EF%BC%9F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%BA%BF%E7%A8%8B/">线程</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130678.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/23/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E4%B8%8E%E5%8D%8F%E7%A8%8B%E5%82%BB%E5%82%BB%E5%88%86%E4%B8%8D%E6%B8%85%EF%BC%9F%E4%B8%80%E6%96%87%E5%B8%A6%E4%BD%A0%E5%90%83%E9%80%8F%EF%BC%81/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">进程、线程与协程傻傻分不清？一文带你吃透！</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/18/%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B5%AE%E7%82%B9%E6%95%B0%E4%B8%8D%E7%B2%BE%E7%A1%AE%EF%BC%9F/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302142122.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">为什么浮点数不精确？</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">mbfjllybl</div><div class="author-info__description">Something for nothing.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BA%BF%E7%A8%8B%E9%97%B4%E5%88%B0%E5%BA%95%E5%85%B1%E4%BA%AB%E4%BA%86%E5%93%AA%E4%BA%9B%E8%BF%9B%E7%A8%8B%E8%B5%84%E6%BA%90%EF%BC%9F"><span class="toc-text">线程间到底共享了哪些进程资源？</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/words/" title="words"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="words"/></a><div class="content"><a class="title" href="/2023/11/27/words/" title="words">words</a><time datetime="2023-11-27T02:17:21.000Z" title="Created 2023-11-27 10:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132066.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iptables详解"/></a><div class="content"><a class="title" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解">iptables详解</a><time datetime="2023-11-27T01:17:21.000Z" title="Created 2023-11-27 09:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之poll总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结">IO多路复用之poll总结</a><time datetime="2023-09-06T05:50:21.000Z" title="Created 2023-09-06 13:50:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之select总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结">IO多路复用之select总结</a><time datetime="2023-09-06T05:17:21.000Z" title="Created 2023-09-06 13:17:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/25/TEST/" title="TEST"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130377.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST"/></a><div class="content"><a class="title" href="/2023/08/25/TEST/" title="TEST">TEST</a><time datetime="2023-08-25T06:46:20.000Z" title="Created 2023-08-25 14:46:20">2023-08-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By mbfjllybl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/08/10/TASK/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-08-10</span><a class="blog-slider__title" href="2023/08/10/TASK/" alt="">TASK</a><div class="blog-slider__text">TASK</div><a class="blog-slider__button" href="2023/08/10/TASK/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/11/27/words/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-11-27</span><a class="blog-slider__title" href="2023/11/27/words/" alt="">words</a><div class="blog-slider__text">会是什么结局？</div><a class="blog-slider__button" href="2023/11/27/words/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>

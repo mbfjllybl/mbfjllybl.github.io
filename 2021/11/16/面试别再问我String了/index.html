@@ -1,0 +1,371 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>面试别再问我String了 | mbfjllybl's Blog</title><meta name="keywords" content="String"><meta name="author" content="mbfjllybl"><meta name="copyright" content="mbfjllybl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="面试别再问我String了因为我已烂熟于心，灵活运用了，别考了。哈哈，希望你能读后思考一下这样对面试官说。 String 简介String定义： public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &amp;#123;&amp;#125; 为什么设计为不可变类呢？ Str">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试别再问我String了">
+<meta property="og:url" content="https://mbfjllybl.github.io/2021/11/16/%E9%9D%A2%E8%AF%95%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91String%E4%BA%86/index.html">
+<meta property="og:site_name" content="mbfjllybl&#39;s Blog">
+<meta property="og:description" content="面试别再问我String了因为我已烂熟于心，灵活运用了，别考了。哈哈，希望你能读后思考一下这样对面试官说。 String 简介String定义： public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &amp;#123;&amp;#125; 为什么设计为不可变类呢？ Str">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121767.jpg">
+<meta property="article:published_time" content="2021-11-16T02:38:33.000Z">
+<meta property="article:modified_time" content="2023-08-10T06:28:56.450Z">
+<meta property="article:author" content="mbfjllybl">
+<meta property="article:tag" content="String">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121767.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mbfjllybl.github.io/2021/11/16/%E9%9D%A2%E8%AF%95%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91String%E4%BA%86/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '面试别再问我String了',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-08-10 14:28:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macblack.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121767.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">mbfjllybl's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">面试别再问我String了</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-16T02:38:33.000Z" title="Created 2021-11-16 10:38:33">2021-11-16</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-08-10T06:28:56.450Z" title="Updated 2023-08-10 14:28:56">2023-08-10</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="面试别再问我String了"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="面试别再问我String了"><a href="#面试别再问我String了" class="headerlink" title="面试别再问我String了"></a>面试别再问我String了</h1><p>因为我已烂熟于心，灵活运用了，别考了。哈哈，希望你能读后思考一下这样对面试官说。</p>
+<h3 id="String-简介"><a href="#String-简介" class="headerlink" title="String 简介"></a>String 简介</h3><p><strong>String定义：</strong></p>
+<p><code>public final class String implements java.io.Serializable, Comparable&lt;String&gt;, CharSequence &#123;&#125;</code></p>
+<p><strong>为什么设计为不可变类呢？</strong></p>
+<p>String设计为不可变类主要考虑到：<strong>效率和安全</strong>。</p>
+<p><strong>效率：</strong></p>
+<ol>
+<li><p>在早期的JVM实现版本中，被final修饰的方法会被转为内嵌调用以提升执行效率。而从Java SE5/6开始，就渐渐摈弃这种方式了。因此在现在的Java SE版本中，不需要考虑用final去提升方法调用效率。只有在确定不想让该方法被覆盖时，才将方法设置为final。</p>
+</li>
+<li><p>缓存hashcode，String不可变，所以hashcode不变，这样缓存才有意义，不必重新计算。</p>
+</li>
+</ol>
+<p><strong>安全：</strong></p>
+<ol>
+<li>String常被作为网络连接，文件操作等参数类型，倘若可改变，会出现意想不到的结果。</li>
+</ol>
+<p><strong>测试掌握程度</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;HelloFlyapi&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str5</span> <span class="operator">=</span> <span class="string">&quot;Flyapi&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str6</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span> + <span class="string">&quot;Flyapi&quot;</span>;</span><br><span class="line">        <span class="type">String</span> <span class="variable">str7</span> <span class="operator">=</span> str4 + str5;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">&quot;str1 == str2 result: &quot;</span> + (str1 == str2)); <span class="number">1</span></span><br><span class="line">        System.out.println(<span class="string">&quot;str1 == str3 result: &quot;</span> + (str1 == str3)); <span class="number">0</span></span><br><span class="line">        System.out.println(<span class="string">&quot;str1 == str6 result: &quot;</span> + (str1 == str6)); <span class="number">1</span></span><br><span class="line">        System.out.println(<span class="string">&quot;str1 == str7 result: &quot;</span> + (str1 == str7)); <span class="number">0</span></span><br><span class="line">        System.out.println(<span class="string">&quot;str1 == str7.intern() result: &quot;</span> + (str1 == str7.intern())); <span class="number">1</span></span><br><span class="line">        System.out.println(<span class="string">&quot;str3 == str3.intern() result: &quot;</span> + (str3 == str3.intern())); <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="String-的创建方式"><a href="#String-的创建方式" class="headerlink" title="String 的创建方式"></a>String 的创建方式</h3><p>从上面的题中你会知道，String的创建方式有两种：</p>
+<p><strong>直接赋值</strong></p>
+<p><code>String str = &quot;flyapi&quot;;</code></p>
+<p>此方式在方法区中字符串常量池中创建对象</p>
+<p><strong>构造器</strong></p>
+<p><code>String str = new String();</code></p>
+<p>此方式在堆内存创建对象</p>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>要理解String，那么要了解JVM内存中的栈(stack)、堆(heap)和方法区。简要图如下：</p>
+<img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111161033670.webp" style="zoom:67%;" />
+
+<hr>
+<p><strong>str1 == str2</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line">System.out.println(str1 == str2); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>当执行第一句时，JVM会先去常量池中查找是否存在HelloFlyapi，当存在时直接返回常量池里的引用；当不存在时，会在字符创常量池中创建一个对象并返回引用。</p>
+<p>当执行第二句时，同样的道理，由于第一句已经在常量池中创建了，所以直接返回上句创建的对象的引用。</p>
+<hr>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;HelloFlyapi&quot;</span>);</span><br><span class="line">System.out.println(str1 == str3); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>执行第一句，同上第一句。</p>
+<p>执行第二句时，会在堆（heap）中创建一个对象，当字符创常量池中没有‘HelloFlyapi’时，会在常量池中也创建一个对象；当常量池中已经存在了，就不会创建新的了。</p>
+<hr>
+<p><strong>str1 == str6</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str6</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span> + <span class="string">&quot;Flyapi&quot;</span>;</span><br><span class="line">System.out.println(str1 == str6); <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>由于”Hello”和”Flyapi”都是常量，编译时，第二句会被自动编译为‘String str6 = “HelloFlyapi”;</p>
+<hr>
+<p><strong>str1 == str7</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="string">&quot;HelloFlyapi&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str4</span> <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str5</span> <span class="operator">=</span> <span class="string">&quot;Flyapi&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">str7</span> <span class="operator">=</span> str4 + str5;</span><br><span class="line">System.out.println(str1 == str7); <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>第四句执行时，JVM会在堆（heap）中创建一个以str4为基础的一个StringBuilder对象，然后调用StringBuilder的append()方法完成与str5的合并，之后会调用toString()方法在堆（heap）中创建一个String对象，并把这个String对象的引用赋给str7。</p>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><p>下面是 String 类支持的方法，更多详细，参看 Java String API 文档：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>char charAt(int index)</td>
+<td>返回指定索引处的 char 值。</td>
+</tr>
+<tr>
+<td>int compareTo(Object o)</td>
+<td>把这个字符串和另一个对象比较。</td>
+</tr>
+<tr>
+<td>int compareTo(String anotherString)</td>
+<td>按字典顺序比较两个字符串。</td>
+</tr>
+<tr>
+<td>boolean endsWith(String suffix)</td>
+<td>测试此字符串是否以指定的后缀结束。</td>
+</tr>
+<tr>
+<td>boolean equals(Object anObject)</td>
+<td>将此字符串与指定的对象比较。</td>
+</tr>
+<tr>
+<td>boolean equalsIgnoreCase(String anotherString)</td>
+<td>将此 String 与另一个 String 比较，不考虑大小写。</td>
+</tr>
+<tr>
+<td>byte[] getBytes()</td>
+<td>使用平台的默认字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td>
+</tr>
+<tr>
+<td>byte[] getBytes(String charsetName)</td>
+<td>使用指定的字符集将此 String 编码为 byte 序列，并将结果存储到一个新的 byte 数组中。</td>
+</tr>
+<tr>
+<td>int indexOf(int ch)</td>
+<td>返回指定字符在此字符串中第一次出现处的索引。</td>
+</tr>
+<tr>
+<td>int indexOf(int ch, int fromIndex)</td>
+<td>返回在此字符串中第一次出现指定字符处的索引，从指定的索引开始搜索。</td>
+</tr>
+<tr>
+<td>int indexOf(String str)</td>
+<td>返回指定子字符串在此字符串中第一次出现处的索引。</td>
+</tr>
+<tr>
+<td>int indexOf(String str, int fromIndex)</td>
+<td>返回指定子字符串在此字符串中第一次出现处的索引，从指定的索引开始。</td>
+</tr>
+<tr>
+<td>String intern()</td>
+<td>返回字符串对象的规范化表示形式。</td>
+</tr>
+<tr>
+<td>int lastIndexOf(int ch)</td>
+<td>返回指定字符在此字符串中最后一次出现处的索引。</td>
+</tr>
+<tr>
+<td>int lastIndexOf(String str)</td>
+<td>返回指定子字符串在此字符串中最右边出现处的索引。</td>
+</tr>
+<tr>
+<td>int length()</td>
+<td>返回此字符串的长度。</td>
+</tr>
+<tr>
+<td>boolean matches(String regex)</td>
+<td>告知此字符串是否匹配给定的正则表达式。</td>
+</tr>
+<tr>
+<td>String replace(char oldChar, char newChar)</td>
+<td>返回一个新的字符串，它是通过用 newChar 替换此字符串中出现的所有 oldChar 得到的。</td>
+</tr>
+<tr>
+<td>String[] split(String regex)</td>
+<td>根据给定正则表达式的匹配拆分此字符串。</td>
+</tr>
+<tr>
+<td>boolean startsWith(String prefix)</td>
+<td>测试此字符串是否以指定的前缀开始。</td>
+</tr>
+<tr>
+<td>String substring(int beginIndex)</td>
+<td>返回一个新的字符串，它是此字符串的一个子字符串。</td>
+</tr>
+<tr>
+<td>String substring(int beginIndex, int endIndex)</td>
+<td>返回一个新字符串，它是此字符串的一个子字符串。</td>
+</tr>
+<tr>
+<td>char[] toCharArray()</td>
+<td>将此字符串转换为一个新的字符数组。</td>
+</tr>
+<tr>
+<td>String toLowerCase()</td>
+<td>使用默认语言环境的规则将此 String 中的所有字符都转换为小写。</td>
+</tr>
+<tr>
+<td>String toUpperCase()</td>
+<td>使用默认语言环境的规则将此 String 中的所有字符都转换为大写。</td>
+</tr>
+<tr>
+<td>String trim()</td>
+<td>返回字符串的副本，忽略前导空白和尾部空白。</td>
+</tr>
+</tbody></table>
+<h3 id="String相关"><a href="#String相关" class="headerlink" title="String相关"></a>String相关</h3><p>由于String的不可变性导致，字符串变更时效率低下，在之后得JDK版本中出现了StringBuilder和StringBuffer。</p>
+<table>
+<thead>
+<tr>
+<th>类</th>
+<th>可变性</th>
+<th>线程安全</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>String</td>
+<td>不可变</td>
+<td>安全</td>
+</tr>
+<tr>
+<td>StringBuffer</td>
+<td>可变</td>
+<td>安全</td>
+</tr>
+<tr>
+<td>StringBuilder</td>
+<td>可变</td>
+<td>非安全</td>
+</tr>
+</tbody></table>
+<p><strong>使用选择</strong></p>
+<ol>
+<li>当有少量连接操作时，使用String</li>
+<li>当单线程下有大量连接操作时，使用StringBuilder</li>
+<li>当多线程下有大量连接操作时，使用StringBuffer</li>
+</ol>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/OKpyfgcQwspB4HK_JkBfRw">link</a></p>
+</blockquote>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">mbfjllybl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://mbfjllybl.github.io/2021/11/16/%E9%9D%A2%E8%AF%95%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91String%E4%BA%86/">https://mbfjllybl.github.io/2021/11/16/%E9%9D%A2%E8%AF%95%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91String%E4%BA%86/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/String/">String</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121767.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2021/11/16/%E7%90%86%E8%A7%A3Java%E4%B8%AD%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%A1%80Object%E7%B1%BB/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130457.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">理解Java中对象基础Object类</div></div></a></div><div class="next-post pull-right"><a href="/2021/11/16/Java%20%E4%B8%AD%20CharSequence%20%E7%B1%BB%E5%9E%8B/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Java 中 CharSequence 类型</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">mbfjllybl</div><div class="author-info__description">Something for nothing.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">73</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">47</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">21</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%9D%A2%E8%AF%95%E5%88%AB%E5%86%8D%E9%97%AE%E6%88%91String%E4%BA%86"><span class="toc-text">面试别再问我String了</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#String-%E7%AE%80%E4%BB%8B"><span class="toc-text">String 简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String-%E7%9A%84%E5%88%9B%E5%BB%BA%E6%96%B9%E5%BC%8F"><span class="toc-text">String 的创建方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E6%9E%90"><span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-text">常用方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#String%E7%9B%B8%E5%85%B3"><span class="toc-text">String相关</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/words/" title="words"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="words"/></a><div class="content"><a class="title" href="/2023/11/27/words/" title="words">words</a><time datetime="2023-11-27T02:17:21.000Z" title="Created 2023-11-27 10:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132066.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="iptables详解"/></a><div class="content"><a class="title" href="/2023/11/27/iptables%E8%AF%A6%E8%A7%A3/" title="iptables详解">iptables详解</a><time datetime="2023-11-27T01:17:21.000Z" title="Created 2023-11-27 09:17:21">2023-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302132991.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之poll总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bpoll%E6%80%BB%E7%BB%93/" title="IO多路复用之poll总结">IO多路复用之poll总结</a><time datetime="2023-09-06T05:50:21.000Z" title="Created 2023-09-06 13:50:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="IO多路复用之select总结"/></a><div class="content"><a class="title" href="/2023/09/06/IO%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E4%B9%8Bselect%E6%80%BB%E7%BB%93/" title="IO多路复用之select总结">IO多路复用之select总结</a><time datetime="2023-09-06T05:17:21.000Z" title="Created 2023-09-06 13:17:21">2023-09-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/08/25/TEST/" title="TEST"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302130377.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="TEST"/></a><div class="content"><a class="title" href="/2023/08/25/TEST/" title="TEST">TEST</a><time datetime="2023-08-25T06:46:20.000Z" title="Created 2023-08-25 14:46:20">2023-08-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By mbfjllybl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/08/10/TASK/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302133699.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-08-10</span><a class="blog-slider__title" href="2023/08/10/TASK/" alt="">TASK</a><div class="blog-slider__text">TASK</div><a class="blog-slider__button" href="2023/08/10/TASK/" alt="">详情   </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/11/27/words/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144346.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-11-27</span><a class="blog-slider__title" href="2023/11/27/words/" alt="">words</a><div class="blog-slider__text">会是什么结局？</div><a class="blog-slider__button" href="2023/11/27/words/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
