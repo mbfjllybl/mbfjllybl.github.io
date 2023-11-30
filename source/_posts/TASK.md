@@ -9,7 +9,7 @@ description: TASK
 top_img:
 comments:
 cover:
-swiper_index: 1
+swiper_index: 2
 toc:
 toc_number:
 copyright:
