@@ -1,3 +1,3 @@
 #!/bin/bash
 
-npx hexo clean && npx hexo g && npx hexo g
+npx hexo clean && npx hexo g && npx hexo d
