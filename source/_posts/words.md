@@ -24,8 +24,6 @@ highlight_shrink:
 aside:
 ---
 
-
-
 # words
 
 ## 2023年11月27日
@@ -201,7 +199,49 @@ aside:
 | slipper      | 拖鞋                               |
 | wholesome    | 有益健康的、有道德的               |
 
+## 2023年12月01日
 
+| fujang     | 富江                           |
+| ---------- | ------------------------------ |
+| shallow    | 浅的                           |
+| deceive    | 欺骗                           |
+| witness    | 目击者、证人                   |
+| timely     | 及时的                         |
+| strand     | 缕(头发)、部分、岸、滞留(天气) |
+| ward       | 病房、避免                     |
+| escort     | 护卫                           |
+| process    | 具有、持有                     |
+| numerical  | 数字的                         |
+| gossip     | 流言蜚语                       |
+| disclose   | 泄露                           |
+| menace     | 威胁                           |
+| kite       | 风筝                           |
+| skin       | 皮、剥皮                       |
+| mushroom   | 蘑菇                           |
+| virtue     | 美德、优点                     |
+| torture    | 拷打、拷问                     |
+| pastime    | 消遣、娱乐                     |
+| volume     | 体积、音量、卷                 |
+| dispose    | 安排、扔掉                     |
+| devil      | 恶魔                           |
+| beef       | 牛肉、抱怨                     |
+| kilogram   | 千克                           |
+| lucrative  | 赚大钱的                       |
+| vulgar     | 粗鲁的                         |
+| pure       | 纯粹的、完全的                 |
+| irritate   | 激怒                           |
+| vulgar     | 粗鲁的                         |
+| critical   | 批判的、至关重要的             |
+| fulfill    | 完成                           |
+| assemble   | 召集、装配                     |
+| repertoire | 全部剧目、全部才能             |
+| sailor     | 水手                           |
+| decorate   | 装饰、授予奖章                 |
+| quart      | 夸脱(容量单位)                 |
+| frequent   | 频繁的                         |
+| loom       | 隐约出现、逐渐逼近             |
+| presence   | 出席                           |
+| hesitate   | 犹豫、迟疑、顾虑               |
 
 
 
