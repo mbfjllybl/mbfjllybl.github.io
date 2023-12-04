@@ -171,7 +171,7 @@ aside:
 | surpass      | 超过                               |
 | arbitrary    | 任意的、专横的                     |
 | swallow      | 吞下、轻信、燕子                   |
-| chart        | 图标、制定计划                     |
+| chart        | 图表、制定计划                     |
 | distill      | 蒸馏、提炼                         |
 | tongue       | 舌头、语言、说话方式               |
 | organism     | 有机体                             |
@@ -196,7 +196,6 @@ aside:
 | stalk        | 跟踪、（怒气冲冲）走、（动植物）茎 |
 | glare        | 怒视、强光                         |
 | lame         | 站不住脚的、没有说服力的           |
-| slipper      | 拖鞋                               |
 | wholesome    | 有益健康的、有道德的               |
 
 ## 2023年12月01日
@@ -243,7 +242,53 @@ aside:
 | presence   | 出席                           |
 | hesitate   | 犹豫、迟疑、顾虑               |
 
+## 2023年12月04日
 
+| fujang         | 富江                     |
+| -------------- | ------------------------ |
+| ally           | 结盟                     |
+| isle           | 小岛                     |
+| riot           | 暴乱                     |
+| immigrant      | 移民                     |
+| harassment     | 骚扰                     |
+| postage        | 邮费                     |
+| sweat          | 汗水、繁重的工作、运动服 |
+| console        | 安慰、控制台             |
+| demonstrate    | 证明、示范、示威游行     |
+| saint          | 圣人                     |
+| toil           | 苦干、跋涉               |
+| ashore         | 上岸                     |
+| relativity     | 相关                     |
+| skirt          | 裙子、环绕...周围、回避  |
+| rail           | 铁轨、扶手、抗议         |
+| seldom         | 很少                     |
+| prisoner       | 囚犯                     |
+| seminar        | 研讨会                   |
+| sheet          | 床单、一大片             |
+| pendulum       | 钟摆、(事态的)摇摆       |
+| tribe          | 部落、一伙               |
+| accumulate     | 积累                     |
+| economy        | 经济的、节约             |
+| rural          | 乡村的                   |
+| vulnerable     | 脆弱的                   |
+| besides        | 除...外、况且            |
+| tan            | 晒黑的、棕褐色的         |
+| obstacle       | 障碍物                   |
+| subsequent     | 随后的                   |
+| classification | 分类                     |
+| pickup         | 改善、提货               |
+| adjective      | 形容词                   |
+| embody         | 具象化、包含             |
+| steamline      | 使...效率提高            |
+| climax         | 最高点、高潮             |
+| pot            | 锅、瓶、把...栽入盆中    |
+| endeavor       | 尽力                     |
+| diabete        | 糖尿病                   |
+| accommodation  | 住处、和解               |
+| monitor        | 班长、显示屏、检测器     |
+| sepcialitst    | 专家                     |
+| January        | 一月                     |
+| characterize   | 描绘...的特征            |
 
 
 

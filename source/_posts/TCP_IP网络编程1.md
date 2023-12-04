@@ -1,11 +1,11 @@
 ---
-title: 《TCP/IP网络编程》学习笔记
+title: 《TCP/IP网络编程》学习笔记[1]
 date: 2023-11-29 10:17:21
 tags: UC
 categories: UC
 ---
 
-# 《TCP/IP网络编程》学习笔记
+# 《TCP/IP网络编程》学习笔记[1]
 
 ## 第 1 章 理解网络编程和套接字
 
@@ -2056,17 +2056,198 @@ void error_handling(char *message)
 
 ### 11.1 进程间通信的基本概念
 
-管道并非属于进程的资源，而是和套接字一样，属于操作系统（也就不是 fork 函数的复制对象）。所以，两个进程通过操作系统提供的内存空间进行通 信。
+管道并非属于进程的资源，而是和套接字一样，属于操作系统（也就不是 fork 函数的复制对象）。所以，两个进程通过操作系统提供的内存空间进行通信。
 
+```c
+#include <unistd.h>
+int pipe(int filedes[2]);
+/*
+    成功时返回 0 ，失败时返回 -1
+    filedes[0]: 通过管道接收数据时使用的文件描述符，即管道出口
+    filedes[1]: 通过管道传输数据时使用的文件描述符，即管道入口
+*/
+```
 
+**管道 pipe 示例**
 
+```c
+#include <stdio.h>
+#include <unistd.h>
+#define BUF_SIZE 30
 
+int main(int argc, char *argv[])
+{
+    int fds[2];
+    char str[] = "Who are you?";
+    char buf[BUF_SIZE];
+    pid_t pid;
+    // 调用  pipe 函数创建管道，fds 数组中保存用于 I/O 的文件描述符
+    pipe(fds);
+    pid = fork(); //子进程将同时拥有创建管道获取的2个文件描述符，复制的并非管道，而是文件描述符
+    if (pid == 0)
+    {
+        write(fds[1], str, sizeof(str));
+    }
+    else
+    {
+        read(fds[0], buf, BUF_SIZE);
+        puts(buf);
+    }
+    return 0;
+}
+```
 
+**管道 pipe 双向通信示例**
 
+```c
+#include <stdio.h>
+#include <unistd.h>
+#define BUF_SIZE 30
 
+int main(int argc, char *argv[])
+{
+    int fds[2];
+    char str1[] = "Who are you?";
+    char str2[] = "Thank you for your message";
+    char buf[BUF_SIZE];
+    pid_t pid;
 
+    pipe(fds);
+    pid = fork();
+    if (pid == 0)
+    {
+        write(fds[1], str1, sizeof(str1));
+        sleep(2);
+        read(fds[0], buf, BUF_SIZE);
+        printf("Child proc output: %s \n", buf);
+    }
+    else
+    {
+        read(fds[0], buf, BUF_SIZE);
+        printf("Parent proc output: %s \n", buf);
+        write(fds[1], str2, sizeof(str2));
+        sleep(3);
+    }
+    return 0;
+}
+```
 
+但是如果注释掉第18行的代码，就会出现问题，导致一直等待下去。因为数据进入管道后变成了无主数据。也就是通过 read 函数先读取数据的进程将得到数据，即使该进程将数据传到了管道。因为，注释第18行会产生问题。第19行，子进程将读回自己在第 17 行向管道发送的数据。结果父进程调用 read 函数后，无限期等待数据进入管道。
 
+从上述示例中可以看到，只用1个管道进行双向通信并非易事。为了实现这一点，程序需要预测并控制运行流程，这在每种系统中都不同，可以视为不可能完成的任务。既然如此，该如何进行双向通信呢?
+
+当一个管道不满足需求时，就需要创建两个管道，各自负责不同的数据流动。
+
+### 11.2 运用进程间通信
+
+**将回声客户端传输的字符串按序保存到文件中**
+
+实现该任务将创建一个新进程，从向客户端提供服务的进程读取字符串信息。
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <signal.h>
+#include <sys/wait.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+
+#define BUF_SIZE 30
+void error_handling(char *message);
+void read_childproc(int sig);
+
+int main(int argc, char *argv[])
+{
+    int serv_sock, clnt_sock;
+    struct sockaddr_in serv_adr, clnt_adr;
+    int fds[2];
+
+    pid_t pid;
+    struct sigaction act;
+    socklen_t adr_sz;
+    int str_len, state;
+    char buf[BUF_SIZE];
+    if (argc != 2)
+    {
+        printf("Usgae : %s <port>\n", argv[0]);
+        exit(1);
+    }
+    act.sa_handler = read_childproc; //防止僵尸进程
+    sigemptyset(&act.sa_mask);
+    act.sa_flags = 0;
+    state = sigaction(SIGCHLD, &act, 0);         //注册信号处理器,把成功的返回值给 state
+    serv_sock = socket(PF_INET, SOCK_STREAM, 0); //创建服务端套接字
+    memset(&serv_adr, 0, sizeof(serv_adr));
+    serv_adr.sin_family = AF_INET;
+    serv_adr.sin_addr.s_addr = htonl(INADDR_ANY);
+    serv_adr.sin_port = htons(atoi(argv[1]));
+
+    if (bind(serv_sock, (struct sockaddr *)&serv_adr, sizeof(serv_adr)) == -1) //分配IP地址和端口号
+        error_handling("bind() error");
+    if (listen(serv_sock, 5) == -1) //进入等待连接请求状态
+        error_handling("listen() error");
+
+    pipe(fds);
+    pid = fork();
+    if (pid == 0)
+    {
+        FILE *fp = fopen("echomsg.txt", "wb");
+        char msgbuf[BUF_SIZE];
+        int i, len;
+        for (int i = 0; i < 10; i++)
+        {
+            len = read(fds[0], msgbuf, BUF_SIZE);
+            fwrite((void *)msgbuf, 1, len, fp);
+        }
+        fclose(fp);
+        return 0;
+    }
+    while (1)
+    {
+        adr_sz = sizeof(clnt_adr);
+        clnt_sock = accept(serv_sock, (struct sockaddr *)&clnt_adr, &adr_sz);
+        if (clnt_sock == -1)
+            continue;
+        else
+            puts("new client connected...");
+        pid = fork(); //此时，父子进程分别带有一个套接字
+        if (pid == 0) //子进程运行区域,此部分向客户端提供回声服务
+        {
+            close(serv_sock); //关闭服务器套接字，因为从父进程传递到了子进程
+            while ((str_len = read(clnt_sock, buf, BUFSIZ)) != 0)
+            {
+                write(clnt_sock, buf, str_len);
+                write(fds[1], buf, str_len);
+            }
+
+            close(clnt_sock);
+            puts("client disconnected...");
+            return 0;
+        }
+        else
+            close(clnt_sock); //通过 accept 函数创建的套接字文件描述符已经复制给子进程，因为服务器端要销毁自己拥有的
+    }
+    close(serv_sock);
+
+    return 0;
+}
+
+void error_handling(char *message)
+{
+    fputs(message, stderr);
+    fputc('\n', stderr);
+    exit(1);
+}
+void read_childproc(int sig)
+{
+    pid_t pid;
+    int status;
+    pid = waitpid(-1, &status, WNOHANG);
+    printf("removed proc id: %d \n", pid);
+}
+```
 
 
 
