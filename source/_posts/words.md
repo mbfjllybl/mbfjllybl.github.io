@@ -290,7 +290,44 @@ aside:
 | January        | 一月                     |
 | characterize   | 描绘...的特征            |
 
+## 2023年12月05日
 
+| fujang      | 富江                         |
+| ----------- | ---------------------------- |
+| metre       | 米                           |
+| lively      | 有活力的                     |
+| initiate    | 开始、使加入、新加入者、传授 |
+| dear        | 珍贵的、亲爱的               |
+| phrase      | 短语、表达                   |
+| carrier     | 病毒携带者、传输公司         |
+| nose        | 鼻子、前面、嗅觉             |
+| equation    | 方程式、等同看待、复杂局面   |
+| horizontal  | 水平的                       |
+| excess      | 过度的、过量的               |
+| lend        | 借出、贷款、提供帮助         |
+| ozone       | 臭氧                         |
+| petrol      | 汽油                         |
+| signal      | 重要的、信号                 |
+| goat        | 山羊                         |
+| assault     | 袭击                         |
+| shadow      | 影子、少许、跟踪             |
+| enquire     | 询问                         |
+| exhibit     | 展览                         |
+| razor       | 剃刀                         |
+| slide       | 滑行、下跌、幻灯片           |
+| deficiency  | 缺点                         |
+| swan        | 天鹅、闲逛                   |
+| jargon      | 术语                         |
+| hypothesis  | 假设                         |
+| monotonous  | 单调乏味的、无变化的         |
+| obligation  | 义务、承诺                   |
+| ought to    | 应该                         |
+| underground | 暗中的、地下的、地铁         |
+| tale        | 故事、讲述                   |
+| tide        | 潮汐                         |
+| lord        | 贵族、阁下                   |
+| congress    | 代表大会                     |
+| redundant   | 被裁减的、冗余的             |
 
 
 
