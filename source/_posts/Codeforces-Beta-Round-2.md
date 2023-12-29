@@ -137,7 +137,9 @@ int main() {
 
 ## [C. Commentator problem 2600](https://codeforces.com/contest/2/problem/C)
 
-```c
+
+
+```c++
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -181,3 +183,5 @@ int main(){
 
     return 0;
 }
+```
+

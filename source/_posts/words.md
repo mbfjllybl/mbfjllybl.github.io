@@ -768,27 +768,65 @@ aside:
 
 ## 2023年12月29日
 
-| fujang | 富江 |
-| ------ | ---- |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
-|        |      |
+| fujang      | 富江                                     |
+| ----------- | ---------------------------------------- |
+| chew        | 口香糖、咀嚼                             |
+| architect   | 建筑师、设计者                           |
+| current     | (水)流、潮流、现在的                     |
+| transient   | 短暂的、流动人员                         |
+| swal        | 印章、密封                               |
+| vast        | 巨大的                                   |
+| response    | 回应                                     |
+| habitat     | 生长环境、栖息地                         |
+| ultimate    | 最终的、根本的、极致                     |
+| cable       | 钢索、电报、有线电视                     |
+| ridid       | 死板的、僵化的、固执的                   |
+| extract     | 推断出、提取                             |
+| compromise  | 妥协                                     |
+| oar         | 船桨                                     |
+| harm        | 伤害、不利于                             |
+| accommodate | 容纳、提供住宿、迎合                     |
+| knot        | 打结、(毛发的)团、难题                   |
+| battery     | 电池、一组                               |
+| prove       | 证明                                     |
+| draft       | 起草、草稿                               |
+| ripe        | 成熟的、难闻的                           |
+| accord      | 与...一致、协议、条约、赋予              |
+| definition  | 定义、确切描述                           |
+| whale       | 鲸                                       |
+| disturb     | 干扰                                     |
+| submarine   | 潜水艇、海底的                           |
+| evolution   | 进化、演化                               |
+| commission  | 委员会、任命...为军官、正式委托          |
+| mammal      | 哺乳动物                                 |
+| contact     | 接触、熟人、联系、隐形眼镜               |
+| mud         | 泥                                       |
+| expend      | 消费                                     |
+| efficient   | 效率高的、有能力的                       |
+| sink        | 下沉、洗脸盆                             |
+| disturbance | 干扰、暴乱                               |
+| diameter    | 直径                                     |
+| propel      | 推动                                     |
+| shaft       | 电梯井、杆、欺骗、亏待                   |
+| swarm       | 一大群、蜂拥                             |
+| patrol      | 巡逻                                     |
+| prototype   | 原型                                     |
+| gas         | 毒气、气体                               |
+| sideways    | 往一侧的                                 |
+| flexible    | 灵活的、适应性强的                       |
+| extend      | 扩大、延长、占据                         |
+| contrast    | 对比、差别                               |
+| phenomenon  | 现象、非凡的人                           |
+| blade       | 刀片、桨叶、叶片                         |
+| bubble      | 气泡                                     |
+| observe     | 观察、注意到                             |
+| descendant  | 后代、衍生物                             |
+| naval       | 海军的                                   |
+| marine      | 海洋的、海军的、海军士兵                 |
+| craft       | 工艺、技巧、船、精心制作                 |
+| reckon      | 以为、把...当作、估计                    |
+| discipline  | (尤指高等教育中的)学科、训练、管教、纪律 |
+| brand       | 商标、促销、败坏某人的名声               |
 
 
 
