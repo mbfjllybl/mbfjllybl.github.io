@@ -64,7 +64,7 @@ aside:
 | comb          | 梳子                           |
 | mysterious    | 神秘的、故弄玄虚的             |
 | preserve      | 保护、维护                     |
-| magnitude     | 巨大                           |
+| magnitude     |                                |
 | perplex       | 迷惑                           |
 | locker        | 储物柜                         |
 | thrive        | 繁荣                           |
@@ -314,7 +314,7 @@ aside:
 | enquire     | 询问                         |
 | exhibit     | 展览                         |
 | razor       | 剃刀                         |
-| slide       | 滑行、下跌、幻灯片           |
+| slide       | 滑行、下跌、幻灯片、悄悄移动 |
 | deficiency  | 缺点                         |
 | swan        | 天鹅、闲逛                   |
 | jargon      | 术语                         |
@@ -468,15 +468,327 @@ aside:
 | domestic       | 家用的、家庭的           |
 | oval           | 椭圆形的                 |
 
+## 2023年12月11日
 
+| fujang       | 富江                             |
+| ------------ | -------------------------------- |
+| lick         | 舔、(火焰)掠过                   |
+| minus        | 减去、负数、零下                 |
+| devote       | 致力于                           |
+| peel         | 剥去、脱落、果皮                 |
+| turkey       | 火鸡、土耳其                     |
+| clip         | 修剪、碰撞、夹子、电影片段、弹夹 |
+| buffer       | 缓冲物                           |
+| refresh      | 恢复精力、刷新                   |
+| wage         | 工资、发动(战争、运动)           |
+| infinite     | 无限的                           |
+| jug          | 壶                               |
+| slope        | 斜坡、山坡、倾斜、悄悄溜走       |
+| brace        | 使做准备、支架、顶住、加强       |
+| fridge       | 冰箱                             |
+| wool         | 毛、绒、毛线                     |
+| beach        | 海滩、上岸                       |
+| tune         | 音调、调音                       |
+| practitioner | 从业者、实践者                   |
+| marble       | 大理石、弹珠(游戏)               |
+| cash         | 现金                             |
+| mouse        | 老鼠、鼠标、仔细搜寻             |
+| cooperative  | 合作的、合作机构                 |
+| construct    | 建造、绘制、建造物、构想         |
+| drawback     | 缺点                             |
+| trade        | 贸易、行业、做生意               |
+| gadget       | 小工具、小装置                   |
+| editorial    | 编辑的、社伦                     |
+| necessitate  | 迫使、成为必要                   |
+| testify      | 作证                             |
+| gain         | 增加、好处、赢得、利润           |
+| repression   | 镇压、抑制                       |
+| speech       | 演说、口语                       |
+| steam        | 蒸汽                             |
+| shower       | 阵雨、沐浴                       |
+| resemble     | 与...相似                        |
+| sack         | 麻袋、一大袋、开除、劫掠         |
+| vertical     | 垂直的                           |
+| reel         | 一卷胶带、卷、绕、感到震惊、踉跄 |
+| hardware     | 硬件                             |
+| staircase    | 楼梯                             |
 
+## 2023年12月12日
 
+| fujang      | 富江                                        |
+| ----------- | ------------------------------------------- |
+| hole        | 孔、漏洞、洞穴                              |
+| pavement    | 人行道、路面                                |
+| coil        | 缠绕、线圈                                  |
+| pave        | 铺路                                        |
+| crew        | 全体工作人员                                |
+| clasp       | 扣紧、握紧、紧抱                            |
+| centimetre  | 厘米                                        |
+| renovate    | 翻新、修复                                  |
+| oppress     | 压迫                                        |
+| quiver      | 哆嗦、微颤                                  |
+| routine     | 惯例、例行公事、常规的                      |
+| neck        | 脖子、相互拥吻                              |
+| drain       | 溜走、排空、耗尽、下水道                    |
+| humiliate   | 使丢脸                                      |
+| diminish    | 减少、轻视、贬低                            |
+| kettle      | 水壶                                        |
+| overhear    | 偶然听到                                    |
+| mortal      | 致命的、凡人                                |
+| furthermore | 而且                                        |
+| pursue      | 追求、继续调查、从事                        |
+| intrude     | 侵入、闯入、扰乱                            |
+| bride       | 新娘                                        |
+| persecute   | 迫害、骚扰                                  |
+| incorporate | 合并、纳入、包含、(公司)注册成立            |
+| pea         | 豌豆                                        |
+| mosquito    | 蚊子                                        |
+| qualitative | 定型的、性质的                              |
+| illuminate  | 照亮、阐明、澄清                            |
+| jewel       | 宝石                                        |
+| broad       | 宽阔的                                      |
+| multitude   | 大量、群众                                  |
+| soccer      | 足球                                        |
+| cap         | 用...覆盖顶部、帽子、盖子、(资金的)最高限额 |
+| imperial    | 帝王的                                      |
+| endorse     | 赞同、公开支持、代言、签名                  |
+| flu         | 流行性感冒                                  |
+| convert     | 改变、转换                                  |
+| millimeter  | 毫米                                        |
+| booth       | 小隔间、货摊                                |
+| vocabulary  | 词汇量                                      |
+| resistance  | 反抗、阻力                                  |
 
+## 2023年12月13日
 
+| fujang      | 富江                            |
+| ----------- | ------------------------------- |
+| heel        | 后脚跟、高跟鞋                  |
+| drag        | 拖拽、阻力                      |
+| brief       | 短暂的、案情摘要、向...介绍情况 |
+| wrap        | 包裹、覆盖、围巾                |
+| sence       | 情景                            |
+| stall       | 停顿、熄火、摊位                |
+| tendency    | 趋势、习惯                      |
+| assumption  | 假定、担任                      |
+| property    | 财产、所有物、特性、房地产      |
+| optimistic  | 乐观主义的                      |
+| moral       | 道德上的                        |
+| cite        | 引用                            |
+| wander      | 走神、徘徊、漫步于              |
+| stem        | 茎、阻止、起源于                |
+| leap        | 跳跃、突然做(某事)              |
+| neglect     | 疏忽、忽视                      |
+| multiple    | 许多的、多种多样的              |
+| angle       | 角、立场                        |
+| exceedingly | 极其、非常                      |
+| perspective | 视角、观点、客观判断力          |
+| giant       | 巨大的、伟大的、巨人、大公司    |
+| issue       | 困难、发行                      |
+| unlikely    | 不大可能的                      |
+| split       | 分裂、分开                      |
+| humble      | 谦卑的、贬低                    |
+| contribute  | 捐赠、做贡献                    |
+| fatigue     | 疲倦                            |
+| essential   | 必不可少的、本质的              |
+| opponent    | 对手、反对者                    |
+| affirm      | 断言、给予感情支持              |
+| shift       | 转换、换挡                      |
+| strain      | 拉伤、紧张、压力                |
 
+## 2023年12月14日
 
+| fujang      | 富江                           |
+| ----------- | ------------------------------ |
+| premise     | 前提、假定                     |
+| rely        | 信赖                           |
+| evolve      | 逐步发展、演变                 |
+| engage      | 吸引住、密切相关、参加         |
+| govern      | 统治                           |
+| loop        | 环                             |
+| unfold      | 透露、展现                     |
+| innovation  | 革新、新产品                   |
+| explore     | 探险、考察、研究               |
+| individual  | 个体的、个人                   |
+| stability   | 稳定                           |
+| automation  | 自动化                         |
+| rather      | 相当地                         |
+| excessive   | 过多的                         |
+| limitation  | 限定、局限性、缺陷             |
+| engine      | 引擎、工具、手段               |
+| implication | 可能的影响、暗示               |
+| advance     | 前进、预先的                   |
+| due         | 由于、应有的权利、正对着       |
+| costly      | 贵重的、代价大的               |
+| highlight   | 强调、最精彩的部分             |
+| firm        | 坚固的                         |
+| branch      | 树枝、分支                     |
+| graphic     | 图标、绘画的                   |
+| device      | 仪器、设备、手段               |
+| strategy    | 策略                           |
+| integrity   | 正直、诚实、完好               |
+| narrative   | 叙述的                         |
+| singular    | 单数的、非常                   |
+| landscape   | 风景                           |
+| radical     | 根本的、激进分子               |
+| entail      | 需要、使必要                   |
+| potential   | 可能的、潜力                   |
+| consistent  | 持续的、一致的                 |
+| foster      | 养育、促进                     |
+| embrace     | 拥抱、欣然接受(思想)、信奉     |
+| initiative  | 倡议、举措、创造力             |
+| adopt       | 采纳、收养、批准               |
+| series      | 一系列                         |
+| facilitate  | 促进                           |
+| plausible   | 似乎更合理的                   |
+| portfolio   | 文件夹、公文包                 |
+| stream      | 流动、小溪                     |
+| indeed      | 的确                           |
+| altogether  | 总之、完全                     |
+| enhance     | 提高                           |
+| collide     | 碰撞、(意见)严重不一致         |
+| motive      | 动机                           |
+| diplomatic  | 外交的、老练的                 |
+| passage     | 时间流逝、议案通过、通道、章节 |
 
+## 2023年12月15日
 
+| fujang        | 富江                                   |
+| ------------- | -------------------------------------- |
+| stimulate     | 促进、刺激                             |
+| intelligence  | 智力、情报                             |
+| expert        | 专家、专业的                           |
+| dynamic       | 精力充沛的、动态的                     |
+| meditation    | 沉思、冥想                             |
+| curiosity     | 好奇心、珍品                           |
+| refer         | 参考、提及                             |
+| involve       | 包含、涉及、使参与                     |
+| complicated   | 复杂的                                 |
+| crucial       | 至关重要的、决定性的                   |
+| foresee       | 预见                                   |
+| deliberate    | 故意的、深思熟虑                       |
+| subtle        | 微妙的、精妙的                         |
+| foundation    | 基础、基金会                           |
+| setback       | 倒退、挫折                             |
+| operation     | 手术、行动                             |
+| conceive      | 想象、怀孕                             |
+| intricate     | 复杂的                                 |
+| consept       | 概念                                   |
+| structure     | 结构、体系、构造、条理(性)             |
+| professional  | 专业的、专家                           |
+| cue           | 线索                                   |
+| logic         | 逻辑                                   |
+| regual        | 有规律的、经常做某事的、主力队员、常客 |
+| client        | 委托人、客户                           |
+| gut           | 直觉、内脏、勇气                       |
+| barrie        | 障碍、分界线                           |
+| zone          | 地带                                   |
+| activate      | 活性化、启动                           |
+| excel         | 擅长、出色                             |
+| intuition     | 直觉                                   |
+| instinct      | 直觉、天性、本能                       |
+| perceive      | 意识到、察觉                           |
+| empathy       | 同情                                   |
+| nurture       | 帮助、培养、后天培育                   |
+| promote       | 促进、宣传                             |
+| transcend     | 超出                                   |
+| reflection    | 反射、倒影、回忆                       |
+| imaginative   | 有想象力的                             |
+| inform        | 通知                                   |
+| trait         | 特点、遗传特征                         |
+| hinder        | 妨碍                                   |
+| embark        | 开始从事、上船                         |
+| pattern       | 模式、图案                             |
+| default       | 默认的、违约                           |
+| region        | 区域、某个身体部位                     |
+| profound      | 深远的、深刻的                         |
+| comprehensive | 全面的、广泛的                         |
+| cognitive     | 认识的、认知的                         |
+| custody       | 监护权、拘留                           |
+| clothe        | 为..提供衣物、穿衣                     |
+| ink           | 墨水                                   |
+
+## 2023年12月18日
+
+| fujang        | 富江                             |
+| ------------- | -------------------------------- |
+| pound         | 英镑、心脏跳、反复打击           |
+| slip          | 滑倒、偷偷给                     |
+| beware        | 当心                             |
+| semiconductor | 半导体                           |
+| levy          | 税款                             |
+| hitherto      | 到目前为止                       |
+| metaphor      | 暗喻                             |
+| lid           | 盖子                             |
+| shatter       | 打碎、破灭                       |
+| skeleton      | 骨骼、框架                       |
+| pride         | 自豪                             |
+| section       | 部分、部门                       |
+| fiction       | 小说、谎言                       |
+| fiber         | 纤维素                           |
+| humanity      | 人类、人文科学                   |
+| manual        | 手工的、使用手册                 |
+| notable       | 名人、重要的                     |
+| novelty       | 新奇的                           |
+| blueprint     | 蓝图、行动方案                   |
+| persuade      | 说服                             |
+| hat           | 帽子、职位                       |
+| ounce         | 少量、盎司                       |
+| superior      | 更好的、上级                     |
+| lump          | 肿块、归并到一起、结块、同等看待 |
+| hygiene       | 卫生                             |
+| merchandise   | 推销、商品                       |
+| orchestra     | 管弦乐队、靠近舞台的座位         |
+| port          | 港口、移植                       |
+| strife        | 冲突、麻烦                       |
+| thereby       | 因此                             |
+| vocation      | 工作、使命感                     |
+| aftermath     | 后果                             |
+| rape          | 强奸                             |
+| plea          | 恳求、接口                       |
+| wholly        | 完全地                           |
+| distort       | 扭曲、曲解                       |
+| architecture  | 建筑学、建筑风格                 |
+| pant          | 气喘、喘息                       |
+| alternative   | 可供选择的、可供替代的           |
+| superficial   | 肤浅的、表面的                   |
+| fatal         | 致命的、导致失败的、灾难性的     |
+| pad           | 衬垫、覆盖                       |
+| champagne     | 香槟                             |
+| praise        | 赞扬                             |
+| prosper       | 兴旺、发达                       |
+| dwell         | 居住、细想                       |
+| perpetual     | 不间断的、永久的                 |
+| pie           | 馅饼                             |
+| conscious     | 清醒的、意识到的                 |
+| thermometer   | 温度计                           |
+| redeem        | 救赎、弥补                       |
+| botany        | 植物学                           |
+| pack          | 打包、收拾行李、包、盒           |
+
+## 2023年12月29日
+
+| fujang | 富江 |
+| ------ | ---- |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
+|        |      |
 
 
 
