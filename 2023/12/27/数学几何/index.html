@@ -1,0 +1,254 @@
+<!DOCTYPE html><html lang="en" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>数学几何 | mbfjllybl's Blog</title><meta name="keywords" content="ACM"><meta name="author" content="mbfjllybl"><meta name="copyright" content="mbfjllybl"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="数学几何余弦定理余弦定理表达式1    余弦定理表达式2    余弦定理表达式3（角元形式）    正弦定理在任意△ABC中，角A、B、C所对的边长分别为a、b、c，三角形外接圆的半径为R，直径为D。则有：  一个三角形中，各边和所对角的正弦之比相等，且该比值等于该三角形外接圆的直径（半径的2倍）长度。 海伦公式假设在平面内，有一个三角形，边长分别为a、b、c，三角形的面积S可由以下公式求得：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数学几何">
+<meta property="og:url" content="https://mbfjllybl.github.io/2023/12/27/%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95/index.html">
+<meta property="og:site_name" content="mbfjllybl&#39;s Blog">
+<meta property="og:description" content="数学几何余弦定理余弦定理表达式1    余弦定理表达式2    余弦定理表达式3（角元形式）    正弦定理在任意△ABC中，角A、B、C所对的边长分别为a、b、c，三角形外接圆的半径为R，直径为D。则有：  一个三角形中，各边和所对角的正弦之比相等，且该比值等于该三角形外接圆的直径（半径的2倍）长度。 海伦公式假设在平面内，有一个三角形，边长分别为a、b、c，三角形的面积S可由以下公式求得：">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302117735.jpg">
+<meta property="article:published_time" content="2023-12-27T03:17:21.000Z">
+<meta property="article:modified_time" content="2023-12-28T01:45:11.405Z">
+<meta property="article:author" content="mbfjllybl">
+<meta property="article:tag" content="ACM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302117735.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://mbfjllybl.github.io/2023/12/27/%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '数学几何',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: true,
+  isToc: true,
+  postUpdate: '2023-12-28 09:45:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/background.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/macblack.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 5.4.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">81</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">51</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302117735.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">mbfjllybl's Blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/Todo/"><i class="fa-fw fas fa-square-check"></i><span> Todo</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> Archives</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">数学几何</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2023-12-27T03:17:21.000Z" title="Created 2023-12-27 11:17:21">2023-12-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2023-12-28T01:45:11.405Z" title="Updated 2023-12-28 09:45:11">2023-12-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/ACM/">ACM</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="数学几何"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="数学几何"><a href="#数学几何" class="headerlink" title="数学几何"></a>数学几何</h1><h2 id="余弦定理"><a href="#余弦定理" class="headerlink" title="余弦定理"></a>余弦定理</h2><p><strong>余弦定理表达式1</strong></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/3925f17d011929e3c4129c5345a62164.svg" alt="img"></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/c78e8797d0130a39e0586193e0fd3ca3.svg" alt="img"></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/21fbc28a19fcb7ae19a92e7a36f8ca5f.svg"></p>
+<p><strong>余弦定理表达式2</strong></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/7d2b98432fe2fff039e068fe289ab05a.svg" alt="img"></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/858f61d9ed21fdf5e8b5e3c419c773a6.svg" alt="img"></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/7c8fce6c12e7b211e808b7d79d2fb1d0.svg" alt="img"></p>
+<p><strong>余弦定理表达式3（角元形式）</strong></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/a0d6c177838d0b1cf7a4d87afff40dd8.svg" alt="img"></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/a3f2a1c0180010a1f2cd133f9d5e0b64.svg" alt="img"></p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/f5ae77c4a811e4d3e16f822ecf397e92.svg" alt="img"></p>
+<h2 id="正弦定理"><a href="#正弦定理" class="headerlink" title="正弦定理"></a>正弦定理</h2><p>在任意△<em>ABC</em>中，角<em>A</em>、<em>B</em>、<em>C</em>所对的边长分别为<em>a</em>、<em>b</em>、<em>c</em>，三角形<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%A4%96%E6%8E%A5%E5%9C%86/0?fromModule=lemma_inlink">外接圆</a>的半径为<em>R</em>，直径为D。则有：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/a49bddfd6c38e0e80b5664fe4d71829e.svg" alt="img"></p>
+<p>一个三角形中，各边和所对角的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%AD%A3%E5%BC%A6/0?fromModule=lemma_inlink">正弦</a>之比相等，且该<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E6%AF%94%E5%80%BC/0?fromModule=lemma_inlink">比值</a>等于该三角形<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%A4%96%E6%8E%A5%E5%9C%86/0?fromModule=lemma_inlink">外接圆</a>的直径（半径的2倍）长度。</p>
+<h2 id="海伦公式"><a href="#海伦公式" class="headerlink" title="海伦公式"></a>海伦公式</h2><p>假设在平面内，有一个三角形，边长分别为a、b、c，三角形的面积S可由以下公式求得：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/cdb7d3280e4ee6dfe8617ddfe4df7694.svg" alt="img"></p>
+<p>而公式里的p为半周长（周长的一半）：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/8bc7bbda8115c4a084ababeaaa11ac0b.svg" alt="img"></p>
+<h2 id="反三角函数"><a href="#反三角函数" class="headerlink" title="反三角函数"></a>反三角函数</h2><table>
+<thead>
+<tr>
+<th><img src="https://bkimg.cdn.bcebos.com/formula/c308a9498f74a972f5840ff9647de77a.svg" alt="img"></th>
+<th><img src="https://bkimg.cdn.bcebos.com/formula/5d2c279fcbfd08fd2a68f207bd3588f1.svg" alt="img"></th>
+<th><img src="https://bkimg.cdn.bcebos.com/formula/fd68a4ef0457d152d73b9c43223c44c7.svg" alt="img"></th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/c465665327852a79cbe56363ce74f429.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/1aca0dec8565389d3c17ca2d6199ec30.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/7fb511543b7653e7896c8d45d6e1d210.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/6cc75c966b2b8dc4ac9a2d6496118a4c.svg" alt="img"></td>
+</tr>
+<tr>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/285a8a4133b90c541f3cacd0e0606e27.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/e4393ff1fbead284f1e35c770c8f1683.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/e1c025017b8c99258490c79239cf6876.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/2c7903668d2e68d62de5399addc75a45.svg" alt="img"></td>
+</tr>
+<tr>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/58c700cd77fd7463294b09ead28e1195.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/4dd9f87f2503e66f904bc23217ac00e9.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/63a1b7b91897b965db6ddf758541dee5.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/e4791a86cfe8179d786301adddd49f3e.svg" alt="img"></td>
+</tr>
+<tr>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/261363d41fd0c907a698b64d42a675f6.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/d23e0eb920d9eaf56bbec14d325a779a.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/e81f06f268a3c95647a6b8583c9b30e6.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/b307cc8bf0de394e9a40cbd5ee9b9631.svg" alt="img"></td>
+</tr>
+<tr>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/d13d31d89ef68413cd21d6f0dbfa5fdc.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/a30bf5a2d9db6fc0631901be83098a9c.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/8c5d2eff2aa35c3cbea61a3d7643a967.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/3186c55c5d5cb4fddbc36234ddd96b21.svg" alt="img"></td>
+</tr>
+<tr>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/1852f3b1c7aa0c6f813aa5a09d1fa602.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/ccdba10dfb42cf08ae13e02596ed683c.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/02e7baab0e5de293ad5a3772d95dacff.svg" alt="img"></td>
+<td><img src="https://bkimg.cdn.bcebos.com/formula/bf3510e858d09f86f43b542860f1a0ff.svg" alt="img"></td>
+</tr>
+</tbody></table>
+<h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><p><strong>Double GCD</strong></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">double</span> <span class="title">gcd</span><span class="params">(<span class="type">double</span> a, <span class="type">double</span> b)</span></span>&#123;</span><br><span class="line">   <span class="keyword">if</span> (a &lt; b)</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">gcd</span>(b, a);</span><br><span class="line">   <span class="keyword">if</span> (<span class="built_in">fabs</span>(b) &lt; <span class="number">0.001</span>)</span><br><span class="line">      <span class="keyword">return</span> a;</span><br><span class="line">   <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">return</span> (<span class="built_in">gcd</span>(b, a - <span class="built_in">floor</span>(a / b) * b));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="外接圆半径"><a href="#外接圆半径" class="headerlink" title="外接圆半径"></a>外接圆半径</h2><p><strong>用三角形的边和角来表示它的外接圆的半径</strong></p>
+<p>已知一边和它的对角，那么用已知边和角来表示它的<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/%E5%A4%96%E6%8E%A5%E5%9C%86/0?fromModule=lemma_inlink">外接圆</a>的半径R的公式是：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/c7be483a31c375e005a439399c948c42.svg" alt="img"></p>
+<p><strong>用三角形的三边来表示它的外接圆的半径</strong></p>
+<p>用已知边表示三角形的外接圆半径R的公式为：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/f548fed978f8a49aa66b9f8f96141cca.svg" alt="img"></p>
+<h2 id="内切圆半径"><a href="#内切圆半径" class="headerlink" title="内切圆半径"></a>内切圆半径</h2><p><strong>1．用三角形的三边来表示它的内切圆的半径</strong></p>
+<p>用已知边表示内切圆半径r的公式是：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/6d56457e7b7912a12b98dabf61f918fc.svg" alt="img"></p>
+<p><strong>2．用三角形的边和角来表示它的内切圆的半径</strong></p>
+<p>已知三边和一角，那么，用已知边和角表示内切圆半径r的公式是：</p>
+<p><img src="https://bkimg.cdn.bcebos.com/formula/bfef3a5b624be5631deb1a267ebdfc02.svg" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="mailto:undefined">mbfjllybl</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://mbfjllybl.github.io/2023/12/27/%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95/">https://mbfjllybl.github.io/2023/12/27/%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/ACM/">ACM</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302117735.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/28/Operating-Systems-Three-Easy-Pieces/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">Operating Systems : Three Easy Pieces</div></div></a></div><div class="next-post pull-right"><a href="/2023/12/27/Codeforces-Beta-Round-1/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302142122.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Codeforces Beta Round 1</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">mbfjllybl</div><div class="author-info__description">Something for nothing.</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">Articles</div><div class="length-num">81</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">Tags</div><div class="length-num">51</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">Categories</div><div class="length-num">25</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>Announcement</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95"><span class="toc-text">数学几何</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%99%E5%BC%A6%E5%AE%9A%E7%90%86"><span class="toc-text">余弦定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E5%BC%A6%E5%AE%9A%E7%90%86"><span class="toc-text">正弦定理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%B7%E4%BC%A6%E5%85%AC%E5%BC%8F"><span class="toc-text">海伦公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8D%E4%B8%89%E8%A7%92%E5%87%BD%E6%95%B0"><span class="toc-text">反三角函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GCD"><span class="toc-text">GCD</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E6%8E%A5%E5%9C%86%E5%8D%8A%E5%BE%84"><span class="toc-text">外接圆半径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%88%87%E5%9C%86%E5%8D%8A%E5%BE%84"><span class="toc-text">内切圆半径</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2023/12/29/Codeforces-Beta-Round-2/" title="Codeforces Beta Round 2"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Codeforces Beta Round 2"/></a><div class="content"><a class="title" href="/2023/12/29/Codeforces-Beta-Round-2/" title="Codeforces Beta Round 2">Codeforces Beta Round 2</a><time datetime="2023-12-29T02:17:21.000Z" title="Created 2023-12-29 10:17:21">2023-12-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/28/Operating-Systems-Three-Easy-Pieces/" title="Operating Systems : Three Easy Pieces"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302144736.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Operating Systems : Three Easy Pieces"/></a><div class="content"><a class="title" href="/2023/12/28/Operating-Systems-Three-Easy-Pieces/" title="Operating Systems : Three Easy Pieces">Operating Systems : Three Easy Pieces</a><time datetime="2023-12-28T02:17:21.000Z" title="Created 2023-12-28 10:17:21">2023-12-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95/" title="数学几何"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302117735.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="数学几何"/></a><div class="content"><a class="title" href="/2023/12/27/%E6%95%B0%E5%AD%A6%E5%87%A0%E4%BD%95/" title="数学几何">数学几何</a><time datetime="2023-12-27T03:17:21.000Z" title="Created 2023-12-27 11:17:21">2023-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/27/Codeforces-Beta-Round-1/" title="Codeforces Beta Round 1"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302142122.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Codeforces Beta Round 1"/></a><div class="content"><a class="title" href="/2023/12/27/Codeforces-Beta-Round-1/" title="Codeforces Beta Round 1">Codeforces Beta Round 1</a><time datetime="2023-12-27T02:17:21.000Z" title="Created 2023-12-27 10:17:21">2023-12-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2023/12/25/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99%20Makefile/" title="跟我一起写 Makefile"><img src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302121767.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="跟我一起写 Makefile"/></a><div class="content"><a class="title" href="/2023/12/25/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99%20Makefile/" title="跟我一起写 Makefile">跟我一起写 Makefile</a><time datetime="2023-12-25T02:17:21.000Z" title="Created 2023-12-25 10:17:21">2023-12-25</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By mbfjllybl</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="Read Mode"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="Switch Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" href="2023/11/27/words/" alt=""><img width="48" height="48" src="https://cdn.jsdelivr.net/gh/mbfjllybl/pictures-bed/202111302129916.jpg" alt="" onerror="this.src=https://unpkg.zhimg.com/akilar-candyassets/image/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2023-11-27</span><a class="blog-slider__title" href="2023/11/27/words/" alt="">words</a><div class="blog-slider__text">24/7 B-B-B-Brave girls</div><a class="blog-slider__button" href="2023/11/27/words/" alt="">详情   </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = 'undefined'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper.min.js"></script><script defer data-pjax src="https://npm.elemecdn.com/hexo-butterfly-swiper/lib/swiper_init.js"></script><!-- hexo injector body_end end --></body></html>
